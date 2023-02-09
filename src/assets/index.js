@@ -26,8 +26,10 @@ import people03 from "./people03.png";
 import logoPng from "./logoPng.png";
 import logoBlack from "./logoBlack.svg";
 import logoWhite from "./logo-white.svg";
+import newWhiteLogo from "./CapitalCoast.png";
 
 export {
+  newWhiteLogo,
   logoWhite,
   logoBlack,
   logoPng,

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./style";
-import { Navbar } from "./components";
+import { Hero, Navbar } from "./components";
 const App = () => {
   return (
     <div className="bg-primary w-full overflow-hidden text-white">
@@ -11,7 +11,9 @@ const App = () => {
       </div>
 
       <div className={`bg-primary ${styles.flexStart}`}>
-        <div className={`${styles.boxWidth}`}>Hero</div>
+        <div className={`${styles.boxWidth}`}>
+          <Hero />
+        </div>
       </div>
     </div>
   );
