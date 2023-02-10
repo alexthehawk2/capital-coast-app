@@ -23,16 +23,10 @@ import twitter from "./twitter.svg";
 import people01 from "./people01.png";
 import people02 from "./people02.png";
 import people03 from "./people03.png";
-import logoPng from "./logoPng.png";
-import logoBlack from "./logoBlack.svg";
-import logoWhite from "./logo-white.svg";
 import newWhiteLogo from "./CapitalCoast.png";
 
 export {
   newWhiteLogo,
-  logoWhite,
-  logoBlack,
-  logoPng,
   airbnb,
   bill,
   binance,

@@ -1,5 +1,5 @@
 import GetStarted from "./GetStarted";
 import Hero from "./Hero";
 import Navbar from "./Navbar";
-
-export { Navbar, Hero, GetStarted };
+import Stats from "./Stats";
+export { Navbar, Hero, GetStarted, Stats };

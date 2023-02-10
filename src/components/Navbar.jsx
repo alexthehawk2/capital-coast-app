@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import styles from "../style";
-import {
-  close,
-  logoPng,
-  menu,
-  logoBlack,
-  logoWhite,
-  newWhiteLogo,
-} from "../assets";
+import { close, menu, newWhiteLogo } from "../assets";
 import { navLinks } from "../contents/staticContent";
 
 const Navbar = () => {
@@ -25,8 +18,8 @@ const Navbar = () => {
             <li
               key={item.id}
               className={`font-poppins font-normal cursor-pointer text-[16px] text-white ${
-                index === navLinks.length - 1 ? "mr-0" : "mr-10"
-              }`}
+                index !== 0 ? "opacity-70" : ""
+              } ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
             >
               <a href={`#${item.id}`}>{item.title}</a>
             </li>
