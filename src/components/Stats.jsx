@@ -10,7 +10,7 @@ const Stats = () => {
     >
       {stats.map((stat, index) => {
         return (
-          <div className="flex items-center flex-start mb-6 pl-10">
+          <div className="flex items-center flex-start mb-6 pl-10" key={index}>
             <span className="text-4xl font-semibold mr-4">{stat.value}</span>
             <span className="text-gradient mr-4">{stat.title}</span>
             {index !== stats.length - 1 && (
