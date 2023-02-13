@@ -24,8 +24,14 @@ import people01 from "./people01.png";
 import people02 from "./people02.png";
 import people03 from "./people03.png";
 import newWhiteLogo from "./CapitalCoast.png";
+import googleAuthIcon from "./GoogleAuthIcon.svg";
+import appleAuthIcon from "./AppleAuthIcon.svg";
+import authShield from "./AuthShield.svg";
 
 export {
+  authShield,
+  googleAuthIcon,
+  appleAuthIcon,
   newWhiteLogo,
   airbnb,
   bill,
