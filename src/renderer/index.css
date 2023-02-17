@@ -148,3 +148,9 @@ body {
 .auth__right-container {
   background: linear-gradient(180deg, #110f0f 0%, rgba(109, 109, 109, 0) 100%);
 }
+
+.toaster {
+  
+  transition-property: display;
+  transition-duration: 1s;
+}
