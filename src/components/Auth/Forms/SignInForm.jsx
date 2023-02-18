@@ -23,17 +23,17 @@ const SignInForm = ({ toggleToaster }) => {
   };
   const onSubmitHandler = () => {
     try {
-      // postAPI(
-      //   "https://capital-coast-server.onrender.com/api/login",
-      //   userData
-      // ).then((res) => {
-      //   throw new Error("Error");
-      //   if (res) {
-      //     if (res.status === 0) {
-      //       toggleToaster(res.message);
-      //     }
-      //   }
-      // });
+      postAPI(
+        "https://capital-coast-server.onrender.com/api/login",
+        userData
+      ).then((res) => {
+        throw new Error("Error");
+        if (res) {
+          if (res.status === 0) {
+            toggleToaster(res.message);
+          }
+        }
+      });
     } catch (err) {
       toggleToaster(err.message);
     }
