@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import CapitalCoast from "../assets/CapitalCoast.png";
 import { footerLinks, socialMedia } from "../contents/staticContent";
@@ -23,7 +24,7 @@ const Footer = () => {
               {footerLink.links.map((link, index) => {
                 return (
                   <li className="text-white/70 mb-5" key={index}>
-                    <a href={link.link}>{link.name}</a>
+                    <Link href={link.link}>{link.name}</Link>
                   </li>
                 );
               })}
@@ -48,13 +49,13 @@ const Footer = () => {
                   }`}
                   key={social.id}
                 >
-                  <a>
+                  <Link>
                     <Image
                       src={social.icon}
                       alt={social.id}
                       className="w-[32px]"
                     />
-                  </a>
+                  </Link>
                 </li>
               );
             })}

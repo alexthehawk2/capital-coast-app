@@ -3,7 +3,7 @@ import styles from "../style";
 import { close, menu, logo } from "../assets";
 import { navLinks } from "../contents/staticContent";
 import Image from "next/image";
-
+import Link from 'next/link'
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   return (
@@ -18,7 +18,7 @@ const Navbar = () => {
                 index !== 0 ? "opacity-70" : ""
               } ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
             >
-              <a href={`#${item.id}`}>{item.title}</a>
+              <Link href={`#${item.id}`}>{item.title}</Link>
             </li>
           );
         })}
@@ -44,7 +44,7 @@ const Navbar = () => {
                     index === navLinks.length - 1 ? "mr-0" : "mb-4"
                   }`}
                 >
-                  <a href={`#${item.id}`}>{item.title}</a>
+                  <Link href={`#${item.id}`}>{item.title}</Link>
                 </li>
               );
             })}

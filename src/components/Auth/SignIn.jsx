@@ -10,6 +10,7 @@ import AuthButtons from "./AuthButtons";
 import SignInForm from "./Forms/SignInForm";
 import Toaster from "../utilities/Toaster";
 import Image from "next/image";
+import Link from "next/link";
 const SignIn = () => {
   const [displayToaster, setDisplayToaster] = React.useState(false);
   const toggleToaster = (message) => {
@@ -68,9 +69,9 @@ const SignIn = () => {
             </div>
             <p className="text-center mb-2">
               New in here ?{" "}
-              <a href="/signup" className="text-[#2476F1] font-semibold">
+              <Link href="/signup" className="text-[#2476F1] font-semibold">
                 Create an account
-              </a>
+              </Link>
             </p>
             <div className="flex flex-row justify-between mt-auto">
               <Image
