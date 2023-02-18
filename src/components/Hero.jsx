@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { discount, robot } from "../assets";
 import styles from "../style";
@@ -13,7 +14,7 @@ const Hero = () => {
         className={`flex-1 flex-col xl:px-0 sm:px-16 px-6 ${styles.flexStart}`}
       >
         <div className="flex flex-row items-center py-[6px] px-4 bg-discount-gradient rounded-[10px] mb-2 text-[12px]">
-          <img src={discount} alt="discount" className="w-[32px] h-[32px]" />
+          <Image src={discount} alt="discount" className="w-[32px] h-[32px]" />
           <span className="ml-1">20%&nbsp;</span>
           <span className="opacity-60">DISCOUNT FOR&nbsp;</span>
           <span>1 MONTH&nbsp;</span>
@@ -38,7 +39,7 @@ const Hero = () => {
         </div>
       </div>
       <div className="flex-1 flex justify-center items-center md:my-0 my-10 relative">
-        <img
+        <Image
           src={robot}
           alt="billing"
           className="w-[100%] h-[100%] relative z-[5]"

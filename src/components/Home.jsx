@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./style";
+import styles from "../style";
 import {
   Billing,
   Business,
@@ -11,7 +11,7 @@ import {
   Stats,
   Testimonials,
   TryService,
-} from "./components";
+} from "./index";
 const App = () => {
   return (
     <div className="bg-primary w-full overflow-hidden text-white">

@@ -6,24 +6,28 @@ import {
   googleAuthIcon,
   logo,
 } from "../../assets";
-import Toaster from "../utilities/toaster";
 import AuthButtons from "./AuthButtons";
 import SignInForm from "./Forms/SignInForm";
+import Toaster from "../utilities/Toaster";
+import Image from "next/image";
 const SignIn = () => {
   const [displayToaster, setDisplayToaster] = React.useState(false);
   const toggleToaster = (message) => {
     setDisplayToaster(message);
+    setTimeout(() => {
+      setDisplayToaster(false);
+    }, 2000);
   };
   return (
     <>
-      <Toaster toggleDisplay={displayToaster} />
+      {displayToaster && <Toaster toggleDisplay={displayToaster} />}
       <div className="w-[40%] h-[100%] hidden sm:flex text-white px-10 py-5 sm:flex-col sm:items-center">
-        <img
+        <Image
           src={logo}
           alt={"CapitalCoast Logo"}
           className="mb-16 w-[200px] h-[100px]"
         />
-        <img src={bill} alt={"Hero image"} className="mb-2 max-w-[430px]" />
+        <Image src={bill} alt={"Hero image"} className="mb-2 max-w-[430px]" />
         <h1 className="mb-4 text-center text-2xl font-bold">
           You are about to enter the
           <br />
@@ -33,7 +37,7 @@ const SignIn = () => {
       <div className="auth__right-container rounded-tr-[32px]  w-[100%] md:w-[60%] h-[100%] flex flex-col text-white rounded-tl-[32px] ">
         <div className="p-5 rounded-tl-[32px] flex justify-center relative flex-col h-[100%]">
           <div className="flex justify-center md:hidden">
-            <img
+            <Image
               src={logo}
               alt="CapitalCoast logo"
               className="w-[124px] h-[60px] "
@@ -45,7 +49,7 @@ const SignIn = () => {
                 Login to your account
               </h1>
               <p className="text-xs text-center">
-                we'll get you started in no time!
+                we&apos;ll get you started in no time!
               </p>
             </div>
             <div className="flex flex-col sm:flex-row px-5 sm:justify-center mb-5">
@@ -69,7 +73,7 @@ const SignIn = () => {
               </a>
             </p>
             <div className="flex flex-row justify-between mt-auto">
-              <img
+              <Image
                 src={authShield}
                 alt="AuthShield"
                 width={"32px"}

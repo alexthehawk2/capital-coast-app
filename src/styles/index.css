@@ -148,9 +148,27 @@ body {
 .auth__right-container {
   background: linear-gradient(180deg, #110f0f 0%, rgba(109, 109, 109, 0) 100%);
 }
-
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+    margin-right: 0px;
+  }
+  to {
+    opacity: 1;
+    margin-right: 50px;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    margin-right: 0px;
+  }
+  to {
+    opacity: 1;
+    margin-right: 50px;
+  }
+}
 .toaster {
-  
-  transition-property: display;
-  transition-duration: 1s;
+  -webkit-animation: fadeIn 2s ease-in-out;
+  animation: fadeIn 2s ease-in-out;
 }

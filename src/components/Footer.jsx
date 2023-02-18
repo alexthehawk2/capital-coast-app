@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import CapitalCoast from "../assets/CapitalCoast.png";
 import { footerLinks, socialMedia } from "../contents/staticContent";
@@ -5,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="flex flex-col sm:flex-row sm:justify-between flex-wrap">
       <div className="flex flex-col pb-5">
-        <img
+        <Image
           src={CapitalCoast}
           alt="logo"
           className="w-[300px] h-[100px] mb-4"
@@ -48,7 +49,7 @@ const Footer = () => {
                   key={social.id}
                 >
                   <a>
-                    <img
+                    <Image
                       src={social.icon}
                       alt={social.id}
                       className="w-[32px]"

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AuthButtons from "../AuthButtons";
 import openEye from "../../../assets/openEye.svg";
 import closedEye from "../../../assets/closedEye.svg";
+import Image from "next/image";
 const SignUpForm = () => {
   const [userData, setUserData] = useState({
     firstName: "",
@@ -55,7 +56,7 @@ const SignUpForm = () => {
           placeholder="Password"
           value={userData.password}
         />
-        <img
+        <Image
           src={showPassword ? closedEye : openEye}
           alt="eye icon"
           className="ml-[-50px] inline cursor-pointer"

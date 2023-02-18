@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { card } from "../assets";
 import Button from "./utilities/Button";
@@ -20,7 +21,11 @@ const CreditCard = () => {
         <Button />
       </div>
       <div>
-        <img src={card} alt="credit-card-dashboard" className="max-w-[400px]" />
+        <Image
+          src={card}
+          alt="credit-card-dashboard"
+          className="max-w-[400px]"
+        />
       </div>
     </section>
   );

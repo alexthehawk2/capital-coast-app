@@ -23,9 +23,11 @@ Frontend is powered by Vercel.
 
 ## 🚀 Technologies Used
 
-**Front-end** : HTML, CSS, PostCSS, Javascript, ReactJS, Tailwind CSS.
+**Front-end** : HTML, CSS, PostCSS, Javascript, ReactJS, NextJS, Tailwind CSS.
 
 Vite is used as a toolchain for creation of this project.
+
+Note : This project has moved over NextJS
 
 
 ## Acknowledgements

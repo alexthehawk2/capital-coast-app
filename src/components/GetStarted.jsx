@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { arrowUp } from "../assets";
 import styles from "../style";
@@ -13,7 +14,7 @@ const GetStarted = () => {
         <div className={`${styles.flexStart} flex-col`}>
           <div className="flex flex-row text-gradient font-semibold">
             <p>Get </p>
-            <img src={arrowUp} alt="arrow-up" />
+            <Image src={arrowUp} alt="arrow-up" />
           </div>
           <p className="text-gradient font-semibold">Started</p>
         </div>

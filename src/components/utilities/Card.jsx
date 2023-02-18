@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const Card = ({ icon, title, content }) => {
@@ -10,7 +11,7 @@ const Card = ({ icon, title, content }) => {
           className="rounded-full p-4 flex justify-center items-center mr-4 w-[60px]"
           style={{ backgroundColor: "rgba(9, 151, 124, 0.1)" }}
         >
-          <img src={icon} alt={content} className="w-[100%]" />
+          <Image src={icon} alt={content} className="w-[100%]" />
         </div>
       </div>
       <div>

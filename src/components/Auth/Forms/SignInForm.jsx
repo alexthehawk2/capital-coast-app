@@ -3,7 +3,8 @@ import AuthButtons from "../AuthButtons";
 import openEye from "../../../assets/openEye.svg";
 import closedEye from "../../../assets/closedEye.svg";
 import Cookies from "js-cookie";
-import postAPI from "../../utilities/helpers/getApi";
+import postAPI from "../../utilities/helpers/postApi";
+import Image from "next/image";
 const SignInForm = ({ toggleToaster }) => {
   const [userData, setUserData] = useState({
     email: "",
@@ -21,16 +22,21 @@ const SignInForm = ({ toggleToaster }) => {
     setShowPassword(!showPassword);
   };
   const onSubmitHandler = () => {
-    postAPI(
-      "https://capital-coast-server.onrender.com/api/login",
-      userData
-    ).then((res) => {
-      if (res) {
-        if (res.status === 0) {
-          toggleToaster(res.message);
-        }
-      }
-    });
+    try {
+      // postAPI(
+      //   "https://capital-coast-server.onrender.com/api/login",
+      //   userData
+      // ).then((res) => {
+      //   throw new Error("Error");
+      //   if (res) {
+      //     if (res.status === 0) {
+      //       toggleToaster(res.message);
+      //     }
+      //   }
+      // });
+    } catch (err) {
+      toggleToaster(err.message);
+    }
   };
   return (
     <form>
@@ -51,7 +57,7 @@ const SignInForm = ({ toggleToaster }) => {
           placeholder="Password"
           value={userData.password}
         />
-        <img
+        <Image
           src={showPassword ? closedEye : openEye}
           alt="eye icon"
           className="ml-[-50px] inline cursor-pointer"
