@@ -49,7 +49,7 @@ const Footer = () => {
                   }`}
                   key={social.id}
                 >
-                  <Link>
+                  <Link href="#">
                     <Image
                       src={social.icon}
                       alt={social.id}
