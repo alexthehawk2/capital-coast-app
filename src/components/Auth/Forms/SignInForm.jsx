@@ -22,22 +22,25 @@ const SignInForm = ({ toggleToaster }) => {
     setShowPassword(!showPassword);
   };
   const onSubmitHandler = () => {
-    try {
-      postAPI(
-        "https://capital-coast-server.onrender.com/api/login",
-        userData
-      ).then((res) => {
-        throw new Error("Error");
+    postAPI(
+      "https://capital-coast-server.onrender.com/api/login",
+      userData
+    ).then((res) => {
+      try {
         if (res) {
           if (res.status === 0) {
             toggleToaster(res.message);
+          } else if (res.status === 1) {
+            Cookies.set("token", res.token);
+            window.location.href = "/dashboard";
           }
         }
-      });
-    } catch (err) {
-      toggleToaster(err.message);
-    }
+      } catch (e) {
+        toggleToaster(e.message);
+      }
+    });
   };
+
   return (
     <form>
       <div className="w-[100%] mb-2">
