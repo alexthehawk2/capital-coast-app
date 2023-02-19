@@ -32,6 +32,7 @@ const SignInForm = ({ toggleToaster }) => {
             toggleToaster(res.message);
           } else if (res.status === 1) {
             Cookies.set("token", res.token);
+            console.log("tt");
             window.location.href = "/dashboard";
           }
         }

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import {
   appleAuthIcon,
   authShield,
@@ -68,9 +69,9 @@ const SignIn = () => {
             </div>
             <p className="text-center mb-2">
               New in here ?{" "}
-              <a href="/signup" className="text-[#2476F1] font-semibold">
+              <Link href="/signup" className="text-[#2476F1] font-semibold">
                 Create an account
-              </a>
+              </Link>
             </p>
             <div className="flex flex-row justify-between mt-auto">
               <Image
