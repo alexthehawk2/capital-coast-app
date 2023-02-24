@@ -3,6 +3,7 @@ import AuthButtons from "../AuthButtons";
 import openEye from "../../../assets/openEye.svg";
 import closedEye from "../../../assets/closedEye.svg";
 import Image from "next/image";
+import postAPI from "@/components/utilities/helpers/postApi";
 const SignUpForm = () => {
   const [userData, setUserData] = useState({
     firstName: "",
@@ -20,6 +21,23 @@ const SignUpForm = () => {
   };
   const togglePasswordDisplay = () => {
     setShowPassword(!showPassword);
+  };
+
+  const onSubmitHandler = () => {
+    const apiRoute = "/api/auth/signup";
+    postAPI(apiRoute, userData).then((res) => {
+      try {
+        if (res) {
+          if (res.status === 0) {
+            toggleToaster(res.message);
+          } else if (res.status === 1) {
+            // window.location.href = "/dashboard";
+          }
+        }
+      } catch (e) {
+        toggleToaster(e.message);
+      }
+    });
   };
   return (
     <form>
@@ -74,7 +92,7 @@ const SignUpForm = () => {
         </a>
         .
       </p>
-      <AuthButtons name="Sign Up" />
+      <AuthButtons name="Sign Up" handleSubmit={onSubmitHandler} />
     </form>
   );
 };

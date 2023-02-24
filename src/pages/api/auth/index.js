@@ -10,6 +10,7 @@ export default function authHandler(req, res) {
     } catch (e) {
       res.status(200).json({ message: "Invalid token", status: 401 });
     }
+  } else {
+    return res.status(200).json({ message: "Unauthorized", status: 401 });
   }
-  return res.status(200).json({ message: "Unauthorized", status: 401 });
 }

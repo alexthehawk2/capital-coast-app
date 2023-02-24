@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import AuthButtons from "../AuthButtons";
 import openEye from "../../../assets/openEye.svg";
 import closedEye from "../../../assets/closedEye.svg";
-import Cookies from "js-cookie";
 import postAPI from "../../utilities/helpers/postApi";
 import Image from "next/image";
+import Cookies from "universal-cookie";
 const SignInForm = ({ toggleToaster }) => {
   const [userData, setUserData] = useState({
     email: "",
@@ -22,18 +22,14 @@ const SignInForm = ({ toggleToaster }) => {
     setShowPassword(!showPassword);
   };
   const onSubmitHandler = () => {
-    postAPI(
-      "https://capital-coast-server.onrender.com/api/login",
-      userData
-    ).then((res) => {
+    const apiRoute = "/api/auth/login";
+    postAPI(apiRoute, userData).then((res) => {
       try {
         if (res) {
           if (res.status === 0) {
             toggleToaster(res.message);
           } else if (res.status === 1) {
-            Cookies.set("token", res.token);
-            console.log("tt");
-            window.location.href = "/dashboard";
+            // window.location.href = "/dashboard";
           }
         }
       } catch (e) {
