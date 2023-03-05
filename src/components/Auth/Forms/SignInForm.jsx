@@ -4,7 +4,6 @@ import openEye from "../../../assets/openEye.svg";
 import closedEye from "../../../assets/closedEye.svg";
 import postAPI from "../../utilities/helpers/postApi";
 import Image from "next/image";
-import Cookies from "universal-cookie";
 const SignInForm = ({ toggleToaster }) => {
   const [userData, setUserData] = useState({
     email: "",
@@ -26,10 +25,10 @@ const SignInForm = ({ toggleToaster }) => {
     postAPI(apiRoute, userData).then((res) => {
       try {
         if (res) {
-          if (res.status === 0) {
+          if (res.status === "0") {
             toggleToaster(res.message);
-          } else if (res.status === 1) {
-            // window.location.href = "/dashboard";
+          } else if (res.status === "1") {
+            window.location.href = "/dashboard/profile";
           }
         }
       } catch (e) {

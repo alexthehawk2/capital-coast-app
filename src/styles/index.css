@@ -172,3 +172,14 @@ body {
   -webkit-animation: fadeIn 2s ease-in-out;
   animation: fadeIn 2s ease-in-out;
 }
+.label-transition {
+  margin-left: 0;
+  transform: translateX(0);
+  transition: all 2s ease;
+}
+.input-transition:focus-within .label-transition {
+  color: #2476f1;
+  margin: auto;
+  transform: translateX(50%);
+  transition: all 2s ease;
+}

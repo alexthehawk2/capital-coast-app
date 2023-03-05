@@ -3,18 +3,36 @@ import { NextRequest } from "next/server";
 import * as jose from "jose";
 export async function middleware(request) {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-  console.log(request.cookies.has("token"));
+  // console.log(request.cookies.has("token"));
   if (request.cookies.has("token")) {
     const token = request.cookies.get("token")?.value;
-    // console.log(token);
-    const { payload } = await jose.jwtVerify(token, secret);
-    console.log(payload);
+    try {
+      const { payload } = await jose.jwtVerify(token, secret);
+      if (!request.cookies.has("user")) {
+        const requestHeaders = new Headers(request.headers);
+
+        const response = NextResponse.next({
+          request: {
+            headers: requestHeaders,
+          },
+        });
+
+        response.headers.set(
+          "Set-Cookie",
+          "user=" +
+            JSON.stringify(payload) +
+            "; Path=/; HttpOnly; SameSite=Strict; Secure max-age=3600"
+        );
+        return response;
+      }
+    } catch (e) {
+      return NextResponse.redirect(new URL("/signin", request.url));
+    }
   } else {
     return NextResponse.redirect(new URL("/signin", request.url));
   }
-  return NextResponse.rewrite(new URL("/dashboard", request.url));
 }
 
 export const config = {
-  matcher: "/dashboard",
+  matcher: ["/dashboard", "/dashboard/(.*)"],
 };
