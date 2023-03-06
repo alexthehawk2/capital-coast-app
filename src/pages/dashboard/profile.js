@@ -4,7 +4,7 @@ import ChangePassword from "@/components/profile/ChangePassword";
 import Profile from "@/components/profile/Profile";
 import Image from "next/image";
 import React, { useEffect } from "react";
-const profile = () => {
+const _Profile = () => {
   useEffect(() => {
     document.title = "Capital Coast | Profile";
     const main = document.querySelector(".main");
@@ -13,14 +13,16 @@ const profile = () => {
   }, []);
   return (
     <div className="bg-black w-[100vw] h-[auto] p-5 main">
-      <div className="flex justify-center">
+      <div className="flex justify-center sm:justify-start">
         <Image src={logo} alt="capital coast logo" height={100} width={200} />
       </div>
-      <Sidebar />
-      {/* <Profile /> */}
-      {/* <ChangePassword /> */}
+      <div className="sm:pl-[10rem]">
+        <Sidebar />
+        <Profile />
+        <ChangePassword />
+      </div>
     </div>
   );
 };
 
-export default profile;
+export default _Profile;

@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "..";
 import Button2 from "../utilities/Button2";
+import postAPI from "../utilities/helpers/postApi";
 
 const Profile = () => {
   const [userData, setUserData] = useState({
     firstName: "Abir",
     lastName: "Dey",
-    email: "testing@gg.com",
+    email: "test@gg.com",
   });
   const inputOnChangeHandler = (e, type) => {
     setUserData({
       ...userData,
       [type]: e.target.value,
     });
+  };
+  const handleVerifyEmail = () => {
+    postAPI(
+      "/api/auth/verify-email",
+      JSON.stringify({ email: userData.email })
+    );
   };
   return (
     <form className="flex p-5 flex-col w-[100%] text-white bg-[#232020] mt-6 rounded-[10px]">
@@ -72,7 +79,11 @@ const Profile = () => {
           />
         </div>
         <div className="mb-4">
-          <Button name={"Verify Email Address"} width="w-[100%]" />
+          <Button
+            name={"Verify Email Address"}
+            width="w-[100%]"
+            handlerFunction={handleVerifyEmail}
+          />
         </div>
       </div>
       <Button2 name={"Edit Profile Details"} disabled={true} />
