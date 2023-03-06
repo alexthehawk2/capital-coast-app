@@ -5,10 +5,20 @@ import postAPI from "../utilities/helpers/postApi";
 
 const Profile = () => {
   const [userData, setUserData] = useState({
-    firstName: "Abir",
-    lastName: "Dey",
-    email: "test@gg.com",
+    firstName: "",
+    lastName: "",
+    email: "",
   });
+  const getCookie = (name) => {
+    const cookies = document.cookie.split("; ");
+    for (let i = 0; i < cookies.length; i++) {
+      const [cookieName, cookieValue] = cookies[i].split("=");
+      if (cookieName === name) {
+        return cookieValue;
+      }
+    }
+    return null;
+  };
   const inputOnChangeHandler = (e, type) => {
     setUserData({
       ...userData,
@@ -17,10 +27,21 @@ const Profile = () => {
   };
   const handleVerifyEmail = () => {
     postAPI(
-      "/api/auth/verify-email",
+      "/api/auth/request-verify-email",
       JSON.stringify({ email: userData.email })
     );
   };
+  useEffect(() => {
+    const user = JSON.parse(getCookie("user"));
+    setUserData((prev) => {
+      return {
+        ...prev,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      };
+    });
+  }, []);
   return (
     <form className="flex p-5 flex-col w-[100%] text-white bg-[#232020] mt-6 rounded-[10px]">
       <h1 className="text-center text-2xl font-bold my-2">Profile Details</h1>

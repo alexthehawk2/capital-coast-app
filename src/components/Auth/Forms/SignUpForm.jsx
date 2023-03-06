@@ -30,8 +30,8 @@ const SignUpForm = () => {
         if (res) {
           if (res.status === 0) {
             toggleToaster(res.message);
-          } else if (res.status === 1) {
-            // window.location.href = "/dashboard";
+          } else if (res.status === '1') {
+            window.location.href = "/dashboard/profile";
           }
         }
       } catch (e) {
@@ -40,7 +40,7 @@ const SignUpForm = () => {
     });
   };
   return (
-    <form>
+    <form autoComplete="off">
       <div className="mb-2">
         <input
           type="text"
@@ -48,6 +48,8 @@ const SignUpForm = () => {
           className="placeholder:text-[#ffffff]/20 rounded-lg w-[100%] mb-2 bg-[#363D3E] px-4 py-3 focus-visible:outline-[1px] focus-visible:outline-[#75CDFF]"
           onChange={(e) => onInputChangeHandler(e, "firstName")}
           value={userData.firstName}
+
+
         />
         <input
           type="text"
@@ -55,6 +57,7 @@ const SignUpForm = () => {
           className="placeholder:text-[#ffffff]/20 rounded-lg w-[100%] bg-[#363D3E] px-4 py-3 focus-visible:outline-[1px] focus-visible:outline-[#75CDFF]"
           onChange={(e) => onInputChangeHandler(e, "lastName")}
           value={userData.lastName}
+
         />
       </div>
       <div className="w-[100%] mb-2">
@@ -64,6 +67,9 @@ const SignUpForm = () => {
           onChange={(e) => onInputChangeHandler(e, "email")}
           placeholder="Email"
           value={userData.email}
+          autoComplete="off"
+
+
         />
       </div>
       <div className="w-[100%] mb-4">
@@ -73,6 +79,8 @@ const SignUpForm = () => {
           onChange={(e) => onInputChangeHandler(e, "password")}
           placeholder="Password"
           value={userData.password}
+          autoComplete="new-password"
+
         />
         <Image
           src={showPassword ? closedEye : openEye}

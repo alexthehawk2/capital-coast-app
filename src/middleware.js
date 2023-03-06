@@ -16,8 +16,15 @@ export async function middleware(request) {
         return NextResponse.next();
       }
     }
+    const response = NextResponse.next();
+    if (request.cookies.has("user")) {
+      response.headers.set(
+        "Set-Cookie",
+        "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+      );
+    }
 
-    return NextResponse.next();
+    return response;
   }
   // console.log(request.cookies.has("token"));
   if (request.cookies.has("token")) {
@@ -37,7 +44,7 @@ export async function middleware(request) {
           "Set-Cookie",
           "user=" +
             JSON.stringify(payload) +
-            "; Path=/; HttpOnly; SameSite=Strict; Secure max-age=3600"
+            "; Path=/; SameSite=Strict; Secure max-age=3600"
         );
         return response;
       }
