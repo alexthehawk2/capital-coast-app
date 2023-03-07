@@ -3,7 +3,7 @@ import { Button } from "..";
 import Button2 from "../utilities/Button2";
 import postAPI from "../utilities/helpers/postApi";
 
-const Profile = () => {
+const Profile = ({ onOpen }) => {
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
