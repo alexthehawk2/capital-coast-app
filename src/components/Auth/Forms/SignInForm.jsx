@@ -3,13 +3,33 @@ import AuthButtons from "../AuthButtons";
 import openEye from "../../../assets/openEye.svg";
 import closedEye from "../../../assets/closedEye.svg";
 import postAPI from "../../utilities/helpers/postApi";
+import { useDispatch } from "react-redux";
 import Image from "next/image";
+import { setUserDetail } from "@/features/user/userDetail";
+import { useRouter } from "next/router";
 const SignInForm = ({ toggleToaster }) => {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  function parseJwt(token) {
+    let base64Url = token.split(".")[1];
+    let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    let jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+
+    return JSON.parse(jsonPayload);
+  }
 
   const onInputChangeHandler = (e, type) => {
     setUserData({
@@ -28,7 +48,11 @@ const SignInForm = ({ toggleToaster }) => {
           if (res.status === "0") {
             toggleToaster(res.message);
           } else if (res.status === "1") {
-            window.location.href = "/dashboard/profile";
+            const { token } = res;
+            const user = parseJwt(token);
+
+            dispatch(setUserDetail(user));
+            router.push("/dashboard/profile");
           }
         }
       } catch (e) {

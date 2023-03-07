@@ -5,7 +5,6 @@ export default function loginHandler(req, resp) {
   const apiRoute = "http://localhost:3001/api/auth/login";
 
   postAPI(apiRoute, req.body).then((res) => {
-    // console.log(res);
     if (res.status === "1") {
       resp.setHeader(
         "Set-Cookie",
@@ -19,7 +18,9 @@ export default function loginHandler(req, resp) {
       );
 
       // Send a JSON response with a message and status code
-      resp.status(200).json({ message: "Login successfully", status: "1" });
+      resp
+        .status(200)
+        .json({ message: "Login successfully", status: "1", token: res.token });
     } else {
       resp.status(200).json({ message: "Invalid credentials", status: "0" });
     }

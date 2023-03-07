@@ -1,6 +1,8 @@
+import postAPI from "@/components/utilities/helpers/postApi";
+import { getUserEmail } from "@/features/user/userDetail";
 import { Button, ModalFooter } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-
+import { useSelector } from "react-redux";
 const EmailVerifyForm = ({ onClose }) => {
   const [activationCode, setActivationCode] = useState({
     0: "",
@@ -11,6 +13,7 @@ const EmailVerifyForm = ({ onClose }) => {
     5: "",
   });
   const [disabled, setDisabled] = useState(true);
+
   const handleOnchange = (e) => {
     const { name, value } = e.target;
     const { key } = e;
@@ -40,9 +43,17 @@ const EmailVerifyForm = ({ onClose }) => {
     });
     document.getElementById(parseInt(name) + 1)?.focus();
   };
+  const email = useSelector((state) => state.userDetail.email);
   const handleVerifyEmail = (e) => {
     e.preventDefault();
-    console.log("verify email");
+    const code = Object.values(activationCode).join("");
+
+    console.log(email);
+    const payload = {
+      code,
+      // email :
+    };
+    // postAPI();
   };
   useEffect(() => {
     if (activationCode) {
