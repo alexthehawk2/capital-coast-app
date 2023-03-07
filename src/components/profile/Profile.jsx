@@ -1,3 +1,4 @@
+import { spinnerIcon } from "@/assets";
 import React, { useEffect, useState } from "react";
 import { Button } from "..";
 import Button2 from "../utilities/Button2";
@@ -9,6 +10,7 @@ const Profile = ({ onOpen }) => {
     lastName: "",
     email: "",
   });
+  const [loading, setLoading] = useState(false);
   const getCookie = (name) => {
     const cookies = document.cookie.split("; ");
     for (let i = 0; i < cookies.length; i++) {
@@ -26,10 +28,14 @@ const Profile = ({ onOpen }) => {
     });
   };
   const handleVerifyEmail = () => {
+    setLoading(true);
     postAPI(
       "/api/auth/request-verify-email",
       JSON.stringify({ email: userData.email })
-    );
+    ).then((res) => {
+      setLoading(false);
+      onOpen();
+    });
   };
   useEffect(() => {
     const user = JSON.parse(getCookie("user"));
@@ -104,6 +110,9 @@ const Profile = ({ onOpen }) => {
             name={"Verify Email Address"}
             width="w-[100%]"
             handlerFunction={handleVerifyEmail}
+            icon={loading}
+            iconSrc={spinnerIcon}
+            isDisabled={loading}
           />
         </div>
       </div>

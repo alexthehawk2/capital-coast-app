@@ -28,8 +28,9 @@ import googleAuthIcon from "./GoogleAuthIcon.svg";
 import appleAuthIcon from "./AppleAuthIcon.svg";
 import authShield from "./AuthShield.svg";
 import profileIcon from "./profileIcon.svg";
-
+import spinnerIcon from "./spinner.svg";
 export {
+  spinnerIcon,
   profileIcon,
   authShield,
   googleAuthIcon,

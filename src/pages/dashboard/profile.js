@@ -14,17 +14,15 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
+import EmailVerifyForm from "@/components/Auth/Forms/EmailVerifyForm";
 
 const _Profile = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const 
   useEffect(() => {
     document.title = "Capital Coast | Profile";
     const main = document.querySelector(".main");
     console.log(main.offsetHeight);
     main.style.height = `${main.offsetHeight + 97}px`;
-    onOpen();
   }, []);
   return (
     <>
@@ -34,19 +32,8 @@ const _Profile = () => {
           <ModalHeader>Enter Verification Code</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form></form>
-            <p>
-              please enter the Verification code received in your Email address
-              below
-            </p>
+            <EmailVerifyForm onClose={onClose} />
           </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant="ghost">Secondary Action</Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
       <div className="bg-black w-[100vw] h-[auto] p-5 main">
