@@ -50,7 +50,7 @@ const SignInForm = ({ toggleToaster }) => {
           } else if (res.status === "1") {
             const { token } = res;
             const user = parseJwt(token);
-
+            console.log(user);
             dispatch(setUserDetail(user));
             router.push("/dashboard/profile");
           }
