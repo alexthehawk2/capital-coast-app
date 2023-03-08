@@ -1,10 +1,12 @@
 import { spinnerIcon } from "@/assets";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Button } from "..";
 import Button2 from "../utilities/Button2";
 import postAPI from "../utilities/helpers/postApi";
 
 const Profile = ({ onOpen }) => {
+  const [profileEdit, setProfileEdit] = useState(false);
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -48,6 +50,23 @@ const Profile = ({ onOpen }) => {
       };
     });
   }, []);
+  useEffect(() => {
+    const user = JSON.parse(getCookie("user"));
+    if (
+      user.firstName !== userData.firstName ||
+      user.lastName !== userData.lastName ||
+      user.email !== userData.email
+    ) {
+      setProfileEdit(true);
+    } else {
+      setProfileEdit(false);
+    }
+  }, [userData]);
+  const profileEditSubmitHandler = (e) => {
+    e.preventDefault();
+    postAPI("/api/profile/update-profile", userData);
+  };
+  const verifyBtnState = useSelector((state) => state.userDetail.activeStatus);
   return (
     <form className="flex p-5 flex-col w-[100%] text-white bg-[#232020] mt-6 rounded-[10px]">
       <h1 className="text-center text-2xl font-bold my-2">Profile Details</h1>
@@ -105,18 +124,24 @@ const Profile = ({ onOpen }) => {
             onChange={(e) => inputOnChangeHandler(e, "email")}
           />
         </div>
-        <div className="mb-4">
-          <Button
-            name={"Verify Email Address"}
-            width="w-[100%]"
-            handlerFunction={handleVerifyEmail}
-            icon={loading}
-            iconSrc={spinnerIcon}
-            isDisabled={loading}
-          />
-        </div>
+        {!verifyBtnState && (
+          <div className="mb-4">
+            <Button
+              name={"Verify Email Address"}
+              width="w-[100%]"
+              handlerFunction={handleVerifyEmail}
+              icon={loading}
+              iconSrc={spinnerIcon}
+              isDisabled={loading}
+            />
+          </div>
+        )}
       </div>
-      <Button2 name={"Edit Profile Details"} disabled={true} />
+      <Button2
+        name={"Edit Profile Details"}
+        disabled={!profileEdit}
+        handlerFunction={profileEditSubmitHandler}
+      />
     </form>
   );
 };

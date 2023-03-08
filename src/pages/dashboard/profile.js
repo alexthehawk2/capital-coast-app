@@ -3,13 +3,12 @@ import Sidebar from "@/components/navigation/Sidebar";
 import ChangePassword from "@/components/profile/ChangePassword";
 import Profile from "@/components/profile/Profile";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
@@ -18,12 +17,6 @@ import EmailVerifyForm from "@/components/Auth/Forms/EmailVerifyForm";
 
 const _Profile = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useEffect(() => {
-    document.title = "Capital Coast | Profile";
-    const main = document.querySelector(".main");
-    console.log(main.offsetHeight);
-    main.style.height = `${main.offsetHeight + 97}px`;
-  }, []);
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -36,7 +29,7 @@ const _Profile = () => {
           </ModalBody>
         </ModalContent>
       </Modal>
-      <div className="bg-black w-[100vw] h-[auto] p-5 main">
+      <div className="bg-black w-[100%] h-[auto] p-5 main">
         <div className="flex justify-center sm:justify-start">
           <Image src={logo} alt="capital coast logo" height={100} width={200} />
         </div>

@@ -19,6 +19,7 @@
 }
 body {
   font-family: "Poppins", sans-serif;
+  width: 100%;
 }
 .text-gradient {
   background: radial-gradient(
@@ -182,4 +183,19 @@ body {
   margin: auto;
   transform: translateX(50%);
   transition: all 2s ease;
+}
+
+.error-message {
+  color: #f56565;
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.error-message.show {
+  opacity: 1;
+}
+
+.error-message.hide {
+  opacity: 0;
 }

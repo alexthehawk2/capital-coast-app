@@ -15,16 +15,12 @@ export const userDetailSlice = createSlice({
       state.email = action.payload.email;
       state.activeStatus = action.payload.activeStatus;
     },
-    getFullUserDetail: (state) => {
-      return state;
-    },
-    getUserEmail: (state) => {
-      return state.email;
+    setUserActive: (state) => {
+      state.activeStatus = true;
     },
   },
 });
 
-export const { setUserDetail, getFullUserDetail, getUserEmail } =
-  userDetailSlice.actions;
+export const { setUserDetail, setUserActive } = userDetailSlice.actions;
 
 export default userDetailSlice.reducer;

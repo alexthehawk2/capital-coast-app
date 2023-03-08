@@ -1,9 +1,10 @@
 import postAPI from "@/components/utilities/helpers/postApi";
-import { getUserEmail } from "@/features/user/userDetail";
+import { getUserEmail, setUserActive } from "@/features/user/userDetail";
 import { Button, ModalFooter } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const EmailVerifyForm = ({ onClose }) => {
+  const dispatch = useDispatch();
   const [activationCode, setActivationCode] = useState({
     0: "",
     1: "",
@@ -13,8 +14,10 @@ const EmailVerifyForm = ({ onClose }) => {
     5: "",
   });
   const [disabled, setDisabled] = useState(true);
+  const [error, setError] = useState(false);
 
   const handleOnchange = (e) => {
+    setError(false);
     const { name, value } = e.target;
     const { key } = e;
     if (key === "Backspace") {
@@ -50,10 +53,20 @@ const EmailVerifyForm = ({ onClose }) => {
 
     console.log(email);
     const payload = {
-      code,
-      // email :
+      enteredCode: code,
+      email,
     };
-    // postAPI();
+    console.log(payload);
+    postAPI("/api/auth/verify-email", payload).then((res) => {
+      if (res.status === 1) {
+        dispatch(setUserActive());
+        onClose();
+      } else {
+        setError(
+          "Entered code is incorrect, please entered the correct code and submit!"
+        );
+      }
+    });
   };
   useEffect(() => {
     if (activationCode) {
@@ -130,6 +143,13 @@ const EmailVerifyForm = ({ onClose }) => {
           readOnly
         />
       </div>
+      <p
+        className={`${
+          error ? "error-message show" : "error-message hide"
+        } text-center text-red-400 mt-2 `}
+      >
+        {error}
+      </p>
       <ModalFooter>
         <Button colorScheme="red" mr={3} onClick={onClose}>
           Close
