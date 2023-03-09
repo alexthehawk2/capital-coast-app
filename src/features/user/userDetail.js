@@ -18,9 +18,14 @@ export const userDetailSlice = createSlice({
     setUserActive: (state) => {
       state.activeStatus = true;
     },
+    setProfileData: (state, action) => {
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+    },
   },
 });
 
-export const { setUserDetail, setUserActive } = userDetailSlice.actions;
+export const { setUserDetail, setUserActive, setProfileData } =
+  userDetailSlice.actions;
 
 export default userDetailSlice.reducer;

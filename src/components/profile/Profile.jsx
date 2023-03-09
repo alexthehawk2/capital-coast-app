@@ -1,12 +1,17 @@
 import { spinnerIcon } from "@/assets";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "..";
 import Button2 from "../utilities/Button2";
 import postAPI from "../utilities/helpers/postApi";
-
+import { useToast } from "@chakra-ui/react";
+import { setProfileData } from "@/features/user/userDetail";
+import EmailChangeModal from "../Modals/EmailChangeModal";
 const Profile = ({ onOpen }) => {
+  const toast = useToast();
   const [profileEdit, setProfileEdit] = useState(false);
+  const [profileEditLoading, setProfileEditLoading] = useState(false);
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -23,6 +28,9 @@ const Profile = ({ onOpen }) => {
     }
     return null;
   };
+  const openModal = (fn) => {
+    fn();
+  }
   const inputOnChangeHandler = (e, type) => {
     setUserData({
       ...userData,
@@ -64,11 +72,60 @@ const Profile = ({ onOpen }) => {
   }, [userData]);
   const profileEditSubmitHandler = (e) => {
     e.preventDefault();
-    postAPI("/api/profile/update-profile", userData);
+    if (!profileEdit) return;
+    const user = JSON.parse(getCookie("user"));
+    if (user.email !== userData.email) {
+      const payload = {
+        ...userData,
+        changeTo: userData.email,
+        requesterEmail: user.email,
+        type: "emailChangeRequest",
+      };
+      delete payload.email;
+      postAPI("/api/profile/update-profile", payload).then((res) => {
+        console.log(res);
+      });
+    } else {
+      setProfileEditLoading(true);
+      postAPI("/api/profile/update-profile", {
+        userData,
+        type: "profileChange",
+      }).then((res) => {
+        if (res.status === 1) {
+          const newUser = {
+            ...user,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+          };
+          document.cookie = `user=${JSON.stringify(newUser)}; path=/`;
+          dispatch(setProfileData(newUser));
+          setProfileEditLoading(false);
+          setProfileEdit(false);
+          toast({
+            title: "Profile Updated",
+            description: "Your profile has been updated successfully",
+            status: "success",
+            duration: 5000,
+            position: "top-right",
+          });
+        } else {
+          setProfileEditLoading(false);
+
+          toast({
+            title: "Error",
+            description: "Something went wrong",
+            status: "error",
+            duration: 5000,
+            position: "top-right",
+          });
+        }
+      });
+    }
   };
   const verifyBtnState = useSelector((state) => state.userDetail.activeStatus);
   return (
     <form className="flex p-5 flex-col w-[100%] text-white bg-[#232020] mt-6 rounded-[10px]">
+      <EmailChangeModal changeToEmail={userData.email} openModal={openModal}/>
       <h1 className="text-center text-2xl font-bold my-2">Profile Details</h1>
       <div className="p-4 bg-[#3D3939] rounded-[10px] mb-4 input-transition">
         <div className="w-[100%] label-wrapper">
@@ -141,6 +198,8 @@ const Profile = ({ onOpen }) => {
         name={"Edit Profile Details"}
         disabled={!profileEdit}
         handlerFunction={profileEditSubmitHandler}
+        icon={profileEditLoading}
+        iconSrc={spinnerIcon}
       />
     </form>
   );

@@ -1,18 +1,34 @@
 export default async function updateProfileHandler(req, res) {
-  const payload = req.body;
-  const requesterEmail = JSON.parse(req.cookies.user).email;
-  payload.requesterEmail = requesterEmail;
-  console.log(payload);
-  const response = await fetch(
-    "http://localhost:3001/api/profile/edit-profile",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ payload }),
-    }
-  );
-  const data = await response.json();
-  res.json(data);
+  if (req.body.type === "profileChange") {
+    const payload = req.body.userData;
+
+    const response = await fetch(
+      "http://localhost:3001/api/profile/edit-profile",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+    const data = await response.json();
+    res.json(data);
+  } else if (req.body.type === "emailChangeRequest") {
+    const payload = req.body;
+    delete payload.type;
+    const response = await fetch(
+      "http://localhost:3001/api/auth/request-verify-email",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: payload,
+      }
+    );
+    const data = await response.json();
+    res.json(data);
+    res.json({ message: "Email change request sent to admin for approval." });
+  }
 }
