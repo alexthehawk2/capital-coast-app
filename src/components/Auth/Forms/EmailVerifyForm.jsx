@@ -71,7 +71,6 @@ const EmailVerifyForm = ({ onClose }) => {
   useEffect(() => {
     if (activationCode) {
       const keys = Object.keys(activationCode);
-      // console.log(keys);
       for (let i = 0; i < keys.length; i++) {
         if (activationCode[i] === "") {
           setDisabled(true);

@@ -1,5 +1,5 @@
 import { spinnerIcon } from "@/assets";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "..";
 import Button2 from "../utilities/Button2";
@@ -28,9 +28,12 @@ const Profile = ({ onOpen }) => {
     }
     return null;
   };
-  const openModal = (fn) => {
-    fn();
-  }
+  const modalRef = useRef(null);
+
+  const handleModal = (action) => {
+    if (action === "open") modalRef.current.onOpen();
+    else modalRef.current.onClose();
+  };
   const inputOnChangeHandler = (e, type) => {
     setUserData({
       ...userData,
@@ -83,7 +86,17 @@ const Profile = ({ onOpen }) => {
       };
       delete payload.email;
       postAPI("/api/profile/update-profile", payload).then((res) => {
-        console.log(res);
+        if (res.status === 1) {
+          handleModal("open");
+        } else {
+          toast({
+            title: "Error",
+            description: res.message,
+            status: "error",
+            duration: 5000,
+            position: "top-right",
+          });
+        }
       });
     } else {
       setProfileEditLoading(true);
@@ -125,7 +138,7 @@ const Profile = ({ onOpen }) => {
   const verifyBtnState = useSelector((state) => state.userDetail.activeStatus);
   return (
     <form className="flex p-5 flex-col w-[100%] text-white bg-[#232020] mt-6 rounded-[10px]">
-      <EmailChangeModal changeToEmail={userData.email} openModal={openModal}/>
+      <EmailChangeModal changeToEmail={userData.email} ref={modalRef} />
       <h1 className="text-center text-2xl font-bold my-2">Profile Details</h1>
       <div className="p-4 bg-[#3D3939] rounded-[10px] mb-4 input-transition">
         <div className="w-[100%] label-wrapper">

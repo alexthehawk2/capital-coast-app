@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { forwardRef, useEffect } from "react";
+
 import {
   Modal,
   ModalOverlay,
@@ -10,8 +12,18 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-const EmailChangeModal = ({ changeToEmail, openModal }) => {
+import postAPI from "../utilities/helpers/postApi";
+// eslint-disable-next-line react/display-name
+const EmailChangeModal = forwardRef(({ changeToEmail }, ref) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  React.useImperativeHandle(ref, () => ({
+    onOpen,
+    onClose,
+  }));
+  const [isDisabledForEmailCodeBtn, setIsDisabledForEmailCodeBtn] =
+    useState(true);
+  const [isDisabledForActiveCodeBtn, setIsDisabledForActiveCodeBtn] =
+    useState(true);
   const [emailUpdateCode, setEmailUpdateCode] = useState({
     0: "",
     1: "",
@@ -28,14 +40,13 @@ const EmailChangeModal = ({ changeToEmail, openModal }) => {
     11: "",
     12: "",
   });
-  
+
   const handleOnChangeForEmailUpdateCode = (e) => {
     const { name, value } = e.target;
     const { key } = e;
     if (key === "Backspace") {
       if (value.length === 0) {
         document.getElementById(parseInt(name) - 1)?.focus();
-        setDisabled(true);
         return;
       }
       setEmailUpdateCode((prev) => {
@@ -44,7 +55,6 @@ const EmailChangeModal = ({ changeToEmail, openModal }) => {
           [name]: "",
         };
       });
-      setDisabled(true);
 
       return;
     }
@@ -64,17 +74,14 @@ const EmailChangeModal = ({ changeToEmail, openModal }) => {
     if (key === "Backspace") {
       if (value.length === 0) {
         document.getElementById(parseInt(name) - 1)?.focus();
-        setDisabled(true);
         return;
       }
-      debugger;
       setActivationCode((prev) => {
         return {
           ...prev,
           [name]: "",
         };
       });
-      setDisabled(true);
 
       return;
     }
@@ -88,7 +95,42 @@ const EmailChangeModal = ({ changeToEmail, openModal }) => {
     });
     document.getElementById(parseInt(name) + 1)?.focus();
   };
+
+  useEffect(() => {
+    const keys = Object.keys(emailUpdateCode);
+    for (let i = 0; i < keys.length; i++) {
+      if (emailUpdateCode[i] === "") {
+        setIsDisabledForEmailCodeBtn(true);
+        return;
+      }
+    }
+    setIsDisabledForEmailCodeBtn(false);
+  }, [emailUpdateCode]);
+
+  useEffect(() => {
+    const keys = Object.keys(activationCode);
+    for (let i = 0, x = 7; i < keys.length; i++, x++) {
+      if (activationCode[x] === "") {
+        setIsDisabledForActiveCodeBtn(true);
+        return;
+      }
+    }
+
+    setIsDisabledForActiveCodeBtn(false);
+  }, [activationCode]);
   const UserEmail = useSelector((state) => state.userDetail.email);
+
+  const handleVerifyEmail = (type) => {
+    if (type === "currentEmail") {
+      const payload = {
+        email: UserEmail,
+        emailUpdateCode: Object.values(emailUpdateCode).join(""),
+        type: "emailUpdateCodeVerify",
+      };
+      postAPI("/api/profile/update-profile", payload);
+    } else if (type === "newEmail") {
+    }
+  };
   return (
     <>
       <Button onClick={onOpen}>Open Modal</Button>
@@ -162,8 +204,8 @@ const EmailChangeModal = ({ changeToEmail, openModal }) => {
                 <ModalFooter>
                   <Button
                     colorScheme={"cyan"}
-                    // onClick={handleVerifyEmail}
-                    // isDisabled={disabled}
+                    onClick={() => handleVerifyEmail("currentEmail")}
+                    isDisabled={isDisabledForEmailCodeBtn}
                   >
                     Submit
                   </Button>
@@ -235,8 +277,8 @@ const EmailChangeModal = ({ changeToEmail, openModal }) => {
                 </Button>
                 <Button
                   colorScheme={"cyan"}
-                  // onClick={handleVerifyEmail}
-                  // isDisabled={disabled}
+                  onClick={() => handleVerifyEmail("newEmail")}
+                  isDisabled={isDisabledForActiveCodeBtn}
                 >
                   Submit
                 </Button>
@@ -247,6 +289,5 @@ const EmailChangeModal = ({ changeToEmail, openModal }) => {
       </Modal>
     </>
   );
-};
-
+});
 export default EmailChangeModal;
