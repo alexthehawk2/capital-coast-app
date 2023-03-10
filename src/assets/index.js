@@ -29,7 +29,9 @@ import appleAuthIcon from "./AppleAuthIcon.svg";
 import authShield from "./AuthShield.svg";
 import profileIcon from "./profileIcon.svg";
 import spinnerIcon from "./spinner.svg";
+import codeVerified from "./code-verified.gif";
 export {
+  codeVerified,
   spinnerIcon,
   profileIcon,
   authShield,

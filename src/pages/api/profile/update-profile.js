@@ -45,7 +45,20 @@ export default async function updateProfileHandler(req, res) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: payload,
+        body: JSON.stringify(payload),
+      }
+    );
+    const data = await response.json();
+    res.json(data);
+  } else if (req.body.type === "activationCodeVerify") {
+    const response = await fetch(
+      "http://localhost:3001/api/auth/verify-email?type=change-email-to",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req.body),
       }
     );
     const data = await response.json();

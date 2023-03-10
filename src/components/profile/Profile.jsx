@@ -138,7 +138,12 @@ const Profile = ({ onOpen }) => {
   const verifyBtnState = useSelector((state) => state.userDetail.activeStatus);
   return (
     <form className="flex p-5 flex-col w-[100%] text-white bg-[#232020] mt-6 rounded-[10px]">
-      <EmailChangeModal changeToEmail={userData.email} ref={modalRef} />
+      <EmailChangeModal
+        changeToEmail={userData.email}
+        ref={modalRef}
+        firstName={userData.firstName}
+        lastName={userData.lastName}
+      />
       <h1 className="text-center text-2xl font-bold my-2">Profile Details</h1>
       <div className="p-4 bg-[#3D3939] rounded-[10px] mb-4 input-transition">
         <div className="w-[100%] label-wrapper">

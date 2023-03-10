@@ -1,5 +1,5 @@
 import postAPI from "@/components/utilities/helpers/postApi";
-import { getUserEmail, setUserActive } from "@/features/user/userDetail";
+import { setUserActive } from "@/features/user/userDetail";
 import { Button, ModalFooter } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

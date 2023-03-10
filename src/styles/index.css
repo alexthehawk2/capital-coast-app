@@ -199,3 +199,12 @@ body {
 .error-message.hide {
   opacity: 0;
 }
+#verified {
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.blur-effect > *:not(#verified) {
+  filter: blur(5px);
+  pointer-events: none;
+}
