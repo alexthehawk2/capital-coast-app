@@ -204,7 +204,12 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.blur-effect > *:not(#verified) {
+#verified2 {
+  top: 14%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.blur-effect > *:not(#verified, #verified2) {
   filter: blur(5px);
   pointer-events: none;
 }

@@ -1,9 +1,11 @@
+import { getCookie } from "@/components/utilities/helpers/helpers";
 import postAPI from "@/components/utilities/helpers/postApi";
 import { setUserActive } from "@/features/user/userDetail";
-import { Button, ModalFooter } from "@chakra-ui/react";
+import { Button, ModalFooter, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 const EmailVerifyForm = ({ onClose }) => {
+  const toast = useToast();
   const dispatch = useDispatch();
   const [activationCode, setActivationCode] = useState({
     0: "",
@@ -51,16 +53,23 @@ const EmailVerifyForm = ({ onClose }) => {
     e.preventDefault();
     const code = Object.values(activationCode).join("");
 
-    console.log(email);
     const payload = {
       enteredCode: code,
       email,
     };
-    console.log(payload);
     postAPI("/api/auth/verify-email", payload).then((res) => {
       if (res.status === 1) {
+        const user = JSON.parse(getCookie("user"));
+        user.activeStatus = true;
+        document.cookie = `user=${JSON.stringify(user)}`;
         dispatch(setUserActive());
         onClose();
+        toast({
+          title: "Email verified successfully!",
+          status: "success",
+          duration: 3000,
+          position: "top-right",
+        });
       } else {
         setError(
           "Entered code is incorrect, please entered the correct code and submit!"

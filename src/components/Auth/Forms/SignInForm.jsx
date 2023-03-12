@@ -7,7 +7,8 @@ import { useDispatch } from "react-redux";
 import Image from "next/image";
 import { setUserDetail } from "@/features/user/userDetail";
 import { useRouter } from "next/router";
-const SignInForm = ({ toggleToaster }) => {
+import { toggleToaster } from "@/components/utilities/helpers/helpers";
+const SignInForm = ({ setDisplayToaster }) => {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -46,17 +47,16 @@ const SignInForm = ({ toggleToaster }) => {
       try {
         if (res) {
           if (res.status === "0") {
-            toggleToaster(res.message);
+            toggleToaster(res.message, setDisplayToaster);
           } else if (res.status === "1") {
             const { token } = res;
             const user = parseJwt(token);
-            console.log(user);
             dispatch(setUserDetail(user));
             router.push("/dashboard/profile");
           }
         }
       } catch (e) {
-        toggleToaster(e.message);
+        toggleToaster(e.message, setDisplayToaster);
       }
     });
   };

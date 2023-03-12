@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { card } from "../assets";
 import Button from "./utilities/Button";
@@ -18,7 +19,9 @@ const CreditCard = () => {
           Get reward points after every purchase using a our rewards credit card
           specially curated for you.
         </p>
-        <Button />
+        <Link href={"/signup"} className="w-fit block">
+          <Button />
+        </Link>
       </div>
       <div>
         <Image

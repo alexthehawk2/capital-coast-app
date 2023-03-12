@@ -12,7 +12,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 const persistConfig = {
-  timeout: 1000,
+  timeout: 100,
   key: "root",
   storage,
 };

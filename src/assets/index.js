@@ -30,7 +30,11 @@ import authShield from "./AuthShield.svg";
 import profileIcon from "./profileIcon.svg";
 import spinnerIcon from "./spinner.svg";
 import codeVerified from "./code-verified.gif";
+import lockDynamic from "./lock-dynamic.gif";
+import lockStatic from "./lock-static.svg";
 export {
+  lockDynamic,
+  lockStatic,
   codeVerified,
   spinnerIcon,
   profileIcon,

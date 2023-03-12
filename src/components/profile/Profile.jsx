@@ -5,8 +5,10 @@ import { Button } from "..";
 import Button2 from "../utilities/Button2";
 import postAPI from "../utilities/helpers/postApi";
 import { useToast } from "@chakra-ui/react";
-import { setProfileData } from "@/features/user/userDetail";
+import { setProfileData, setUserDetail } from "@/features/user/userDetail";
 import EmailChangeModal from "../Modals/EmailChangeModal";
+import { getCookie } from "../utilities/helpers/helpers";
+
 const Profile = ({ onOpen }) => {
   const toast = useToast();
   const [profileEdit, setProfileEdit] = useState(false);
@@ -18,16 +20,6 @@ const Profile = ({ onOpen }) => {
     email: "",
   });
   const [loading, setLoading] = useState(false);
-  const getCookie = (name) => {
-    const cookies = document.cookie.split("; ");
-    for (let i = 0; i < cookies.length; i++) {
-      const [cookieName, cookieValue] = cookies[i].split("=");
-      if (cookieName === name) {
-        return cookieValue;
-      }
-    }
-    return null;
-  };
   const modalRef = useRef(null);
 
   const handleModal = (action) => {
@@ -60,6 +52,7 @@ const Profile = ({ onOpen }) => {
         email: user.email,
       };
     });
+    dispatch(setUserDetail(user));
   }, []);
   useEffect(() => {
     const user = JSON.parse(getCookie("user"));
@@ -78,6 +71,8 @@ const Profile = ({ onOpen }) => {
     if (!profileEdit) return;
     const user = JSON.parse(getCookie("user"));
     if (user.email !== userData.email) {
+      setProfileEditLoading(true);
+      setProfileEdit(false);
       const payload = {
         ...userData,
         changeTo: userData.email,
@@ -87,6 +82,7 @@ const Profile = ({ onOpen }) => {
       delete payload.email;
       postAPI("/api/profile/update-profile", payload).then((res) => {
         if (res.status === 1) {
+          setProfileEditLoading(false);
           handleModal("open");
         } else {
           toast({
@@ -96,6 +92,7 @@ const Profile = ({ onOpen }) => {
             duration: 5000,
             position: "top-right",
           });
+          setProfileEditLoading(false);
         }
       });
     } else {
@@ -143,6 +140,7 @@ const Profile = ({ onOpen }) => {
         ref={modalRef}
         firstName={userData.firstName}
         lastName={userData.lastName}
+        setUserData={setUserData}
       />
       <h1 className="text-center text-2xl font-bold my-2">Profile Details</h1>
       <div className="p-4 bg-[#3D3939] rounded-[10px] mb-4 input-transition">

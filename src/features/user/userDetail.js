@@ -22,10 +22,16 @@ export const userDetailSlice = createSlice({
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
     },
+    clearUserDetail: (state) => {
+      state.firstName = "";
+      state.lastName = "";
+      state.email = "";
+      state.activeStatus = false;
+    },
   },
 });
 
-export const { setUserDetail, setUserActive, setProfileData } =
+export const { setUserDetail, setUserActive, setProfileData, clearUserDetail } =
   userDetailSlice.actions;
 
 export default userDetailSlice.reducer;

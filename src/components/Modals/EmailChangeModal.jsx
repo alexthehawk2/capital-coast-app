@@ -11,24 +11,33 @@ import {
   useDisclosure,
   Button,
   useToast,
+  ModalCloseButton,
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import postAPI from "../utilities/helpers/postApi";
 import Image from "next/image";
-import { codeVerified } from "@/assets";
+import { codeVerified, lockDynamic, lockStatic } from "@/assets";
+import { getCookie } from "../utilities/helpers/helpers";
+import { setUserDetail } from "@/features/user/userDetail";
+
 // eslint-disable-next-line react/display-name
 const EmailChangeModal = forwardRef(
-  ({ changeToEmail, firstName, lastName }, ref) => {
+  ({ changeToEmail, firstName, lastName, setUserData }, ref) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
     React.useImperativeHandle(ref, () => ({
       onOpen,
       onClose,
     }));
+    const dispatch = useDispatch();
     const [isDisabledForEmailCodeBtn, setIsDisabledForEmailCodeBtn] =
       useState(true);
     const [isDisabledForActiveCodeBtn, setIsDisabledForActiveCodeBtn] =
       useState(true);
+    const [
+      isAllowedToSubmitCodeForNewEmail,
+      setIsAllowedToSubmitCodeForNewEmail,
+    ] = useState(false);
     const [emailUpdateCode, setEmailUpdateCode] = useState({
       0: "",
       1: "",
@@ -142,9 +151,18 @@ const EmailChangeModal = forwardRef(
               position: "top-right",
             });
             const div = document.getElementById("verify-email-1");
-            const verified = document.getElementById("verified");
             div.classList.add("blur-effect");
-            verified.classList.remove("hidden");
+            const imageDiv = document.getElementById("verified2");
+            const blurDiv2 = document.getElementById("verify-email-2");
+            setIsAllowedToSubmitCodeForNewEmail(true);
+            const intervalId = setInterval(() => {
+              imageDiv.classList.add("hidden");
+              blurDiv2.classList.remove("blur-effect");
+            }, 700);
+            const timeoutId = setTimeout(() => {
+              clearInterval(intervalId);
+              clearTimeout(timeoutId);
+            }, 1000); // clear both the interval and timeout after 1 second
           } else {
             toast({
               title: "Error",
@@ -166,22 +184,86 @@ const EmailChangeModal = forwardRef(
           },
           type: "activationCodeVerify",
         };
-        postAPI("/api/profile/update-profile", body).then((res) => {});
+        postAPI("/api/profile/update-profile", body).then((res) => {
+          if (res.status === 1) {
+            toast({
+              title: "Success",
+              description: res.message,
+              status: "success",
+              duration: 3000,
+              position: "top-right",
+            });
+            const user = JSON.parse(getCookie("user"));
+            user.email = changeToEmail;
+            user.firstName = firstName;
+            user.lastName = lastName;
+            document.cookie = `user=${JSON.stringify(user)}; path=/`;
+            dispatch(setUserDetail(user));
+            onClose();
+          } else {
+            toast({
+              title: "Error",
+              description: res.message + ", please try again",
+              status: "error",
+              duration: 3000,
+              position: "top-right",
+            });
+          }
+        });
       }
     };
     return (
       <>
-        <Button onClick={onOpen}>Open Modal</Button>
-        <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
+        <Modal
+          isOpen={isOpen}
+          onClose={() => {
+            setEmailUpdateCode((prev) => {
+              return {
+                ...prev,
+                0: "",
+                1: "",
+                2: "",
+                3: "",
+                4: "",
+                5: "",
+              };
+            });
+            setActivationCode((prev) => {
+              return {
+                ...prev,
+                7: "",
+                8: "",
+                9: "",
+                10: "",
+                11: "",
+                12: "",
+              };
+            });
+            setIsAllowedToSubmitCodeForNewEmail(false);
+            setUserData(() => {
+              const user = JSON.parse(getCookie("user"));
+              return {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+              };
+            });
+            onClose();
+          }}
+          closeOnOverlayClick={false}
+        >
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Email Update Verification</ModalHeader>
+            <ModalCloseButton />
             <ModalBody>
               <form>
                 <div id="verify-email-1" className="relative">
-                  <div className="absolute hidden" id="verified">
-                    <Image src={codeVerified} alt="verified" width={50} />
-                  </div>
+                  {isAllowedToSubmitCodeForNewEmail && (
+                    <div className="absolute" id="verified">
+                      <Image src={codeVerified} alt="verified" width={50} />
+                    </div>
+                  )}
                   <p className="mb-4 text-sm text-center">
                     Please enter the email update code received in {UserEmail}
                   </p>
@@ -252,78 +334,128 @@ const EmailChangeModal = forwardRef(
                     </Button>
                   </ModalFooter>
                 </div>
-
-                <p className="mb-4 text-sm text-center mt-4">
-                  Please enter the verification code received in {changeToEmail}
-                </p>
-                <div className="flex justify-center text-center">
-                  <input
-                    type="number"
-                    name="7"
-                    className="w-[40px] border rounded-sm mr-4 text-center"
-                    value={activationCode[7]}
-                    onKeyDown={handleOnChangeForEmailActiveCode}
-                    readOnly
-                    id="7"
-                  />
-                  <input
-                    type="number"
-                    name="8"
-                    className="w-[40px] border rounded-sm mr-4 text-center"
-                    value={activationCode[8]}
-                    onKeyDown={handleOnChangeForEmailActiveCode}
-                    id="8"
-                    readOnly
-                  />
-                  <input
-                    type="number"
-                    name="9"
-                    className="w-[40px] border rounded-sm mr-4 text-center"
-                    value={activationCode[9]}
-                    onKeyDown={handleOnChangeForEmailActiveCode}
-                    id="9"
-                    readOnly
-                  />
-                  <input
-                    type="number"
-                    name="10"
-                    className="w-[40px] border rounded-sm mr-4 text-center"
-                    value={activationCode[10]}
-                    onKeyDown={handleOnChangeForEmailActiveCode}
-                    id="10"
-                    readOnly
-                  />
-                  <input
-                    type="number"
-                    name="11"
-                    className="w-[40px] border rounded-sm mr-4 text-center"
-                    value={activationCode[11]}
-                    onKeyDown={handleOnChangeForEmailActiveCode}
-                    id="11"
-                    readOnly
-                  />
-                  <input
-                    type="number"
-                    name="12"
-                    className="w-[40px] border rounded-sm text-center"
-                    value={activationCode[12]}
-                    onKeyDown={handleOnChangeForEmailActiveCode}
-                    id="12"
-                    readOnly
-                  />
+                <div id="verify-email-2" className={`relative blur-effect`}>
+                  <div className="absolute" id="verified2">
+                    <Image
+                      src={
+                        isAllowedToSubmitCodeForNewEmail
+                          ? lockDynamic
+                          : lockStatic
+                      }
+                      alt="verified"
+                      width={50}
+                    />
+                  </div>
+                  <p className="mb-4 text-sm text-center mt-4">
+                    Please enter the verification code received in{" "}
+                    {changeToEmail}
+                  </p>
+                  <div className="flex justify-center text-center">
+                    <input
+                      type="number"
+                      name="7"
+                      className="w-[40px] border rounded-sm mr-4 text-center"
+                      value={activationCode[7]}
+                      onKeyDown={handleOnChangeForEmailActiveCode}
+                      readOnly
+                      id="7"
+                    />
+                    <input
+                      type="number"
+                      name="8"
+                      className="w-[40px] border rounded-sm mr-4 text-center"
+                      value={activationCode[8]}
+                      onKeyDown={handleOnChangeForEmailActiveCode}
+                      id="8"
+                      readOnly
+                    />
+                    <input
+                      type="number"
+                      name="9"
+                      className="w-[40px] border rounded-sm mr-4 text-center"
+                      value={activationCode[9]}
+                      onKeyDown={handleOnChangeForEmailActiveCode}
+                      id="9"
+                      readOnly
+                    />
+                    <input
+                      type="number"
+                      name="10"
+                      className="w-[40px] border rounded-sm mr-4 text-center"
+                      value={activationCode[10]}
+                      onKeyDown={handleOnChangeForEmailActiveCode}
+                      id="10"
+                      readOnly
+                    />
+                    <input
+                      type="number"
+                      name="11"
+                      className="w-[40px] border rounded-sm mr-4 text-center"
+                      value={activationCode[11]}
+                      onKeyDown={handleOnChangeForEmailActiveCode}
+                      id="11"
+                      readOnly
+                    />
+                    <input
+                      type="number"
+                      name="12"
+                      className="w-[40px] border rounded-sm text-center"
+                      value={activationCode[12]}
+                      onKeyDown={handleOnChangeForEmailActiveCode}
+                      id="12"
+                      readOnly
+                    />
+                  </div>
+                  <ModalFooter>
+                    <Button
+                      colorScheme="red"
+                      mr={3}
+                      onClick={() => {
+                        setEmailUpdateCode((prev) => {
+                          return {
+                            ...prev,
+                            0: "",
+                            1: "",
+                            2: "",
+                            3: "",
+                            4: "",
+                            5: "",
+                          };
+                        });
+                        setActivationCode((prev) => {
+                          return {
+                            ...prev,
+                            7: "",
+                            8: "",
+                            9: "",
+                            10: "",
+                            11: "",
+                            12: "",
+                          };
+                        });
+                        setIsAllowedToSubmitCodeForNewEmail(false);
+                        setUserData((prev) => {
+                          const user = JSON.parse(getCookie("user"));
+                          return {
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            email: user.email,
+                          };
+                        });
+                        onClose();
+                      }}
+                    >
+                      Close
+                    </Button>
+                    <Button
+                      colorScheme={"cyan"}
+                      onClick={() => handleVerifyEmail("newEmail")}
+                      isDisabled={isDisabledForActiveCodeBtn}
+                    >
+                      Submit
+                    </Button>
+                  </ModalFooter>
                 </div>
-                <ModalFooter>
-                  <Button colorScheme="red" mr={3} onClick={onClose}>
-                    Close
-                  </Button>
-                  <Button
-                    colorScheme={"cyan"}
-                    onClick={() => handleVerifyEmail("newEmail")}
-                    isDisabled={isDisabledForActiveCodeBtn}
-                  >
-                    Submit
-                  </Button>
-                </ModalFooter>
               </form>
             </ModalBody>
           </ModalContent>

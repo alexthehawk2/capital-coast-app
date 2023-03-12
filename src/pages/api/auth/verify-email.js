@@ -1,6 +1,5 @@
 export default async function sendVerifyEmailHandler(req, res) {
   const payload = req.body;
-  console.log(payload);
   const response = await fetch("http://localhost:3001/api/auth/verify-email", {
     method: "POST",
     headers: {

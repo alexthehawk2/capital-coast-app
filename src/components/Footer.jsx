@@ -1,16 +1,12 @@
+import { logo } from "@/assets";
 import Image from "next/image";
 import React from "react";
-import CapitalCoast from "../assets/CapitalCoast.png";
 import { footerLinks, socialMedia } from "../contents/staticContent";
 const Footer = () => {
   return (
     <footer className="flex flex-col sm:flex-row sm:justify-between flex-wrap">
       <div className="flex flex-col pb-5">
-        <Image
-          src={CapitalCoast}
-          alt="logo"
-          className="w-[300px] h-[100px] mb-4"
-        />
+        <Image src={logo} alt="logo" className="w-[300px] h-[100px] mb-4" />
         <p className="text-[#ffffff]/70 ml-4">
           A new way to make the payments easy, reliable and secure.
         </p>

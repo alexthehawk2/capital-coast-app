@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import {
   appleAuthIcon,
@@ -11,14 +11,17 @@ import AuthButtons from "./AuthButtons";
 import SignInForm from "./Forms/SignInForm";
 import Toaster from "../utilities/Toaster";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { clearUserDetail } from "@/features/user/userDetail";
+import { getCookie } from "../utilities/helpers/helpers";
 const SignIn = () => {
   const [displayToaster, setDisplayToaster] = React.useState(false);
-  const toggleToaster = (message) => {
-    setDisplayToaster(message);
-    setTimeout(() => {
-      setDisplayToaster(false);
-    }, 2000);
-  };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!getCookie("user")) {
+      dispatch(clearUserDetail());
+    }
+  });
   return (
     <>
       {displayToaster && <Toaster toggleDisplay={displayToaster} />}
@@ -65,7 +68,7 @@ const SignIn = () => {
               </div>
             </div>
             <div className="px-5 mb-2">
-              <SignInForm toggleToaster={toggleToaster} />
+              <SignInForm setDisplayToaster={setDisplayToaster} />
             </div>
             <p className="text-center mb-2">
               New in here ?{" "}

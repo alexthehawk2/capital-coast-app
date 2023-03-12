@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import Button from "./utilities/Button";
 
@@ -15,7 +16,9 @@ const TryService = () => {
           </p>
         </div>
         <div className="flex flex-col justify-center w-[100%] sm:max-w-[30%]">
-          <Button />
+          <Link className="w-fit" href={"/signup"}>
+            <Button />
+          </Link>
         </div>
       </div>
     </section>

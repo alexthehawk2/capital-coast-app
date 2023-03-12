@@ -11,11 +11,14 @@ const Button = ({
 }) => {
   return (
     <button
-      onClick={(e) => {
-        e.preventDefault();
-        if (isDisabled) return;
-        handlerFunction();
-      }}
+      onClick={
+        handlerFunction &&
+        ((e) => {
+          e.preventDefault();
+          if (isDisabled) return;
+          handlerFunction();
+        })
+      }
       className={`font-semibold ${isDisabled ? "" : "cursor-pointer"} ${
         width || "max-w-[150px]"
       } px-4 py-3 rounded-md bg-blue-gradient text-black flex justify-center items-center ${

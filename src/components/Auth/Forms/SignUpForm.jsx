@@ -4,7 +4,8 @@ import openEye from "../../../assets/openEye.svg";
 import closedEye from "../../../assets/closedEye.svg";
 import Image from "next/image";
 import postAPI from "@/components/utilities/helpers/postApi";
-const SignUpForm = () => {
+import { toggleToaster } from "@/components/utilities/helpers/helpers";
+const SignUpForm = ({ setDisplayToaster }) => {
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -28,14 +29,14 @@ const SignUpForm = () => {
     postAPI(apiRoute, userData).then((res) => {
       try {
         if (res) {
-          if (res.status === 0) {
-            toggleToaster(res.message);
-          } else if (res.status === '1') {
+          if (res.status === "0") {
+            toggleToaster(res.message, setDisplayToaster);
+          } else if (res.status === "1") {
             window.location.href = "/dashboard/profile";
           }
         }
       } catch (e) {
-        toggleToaster(e.message);
+        toggleToaster(e.message, setDisplayToaster);
       }
     });
   };
@@ -48,8 +49,6 @@ const SignUpForm = () => {
           className="placeholder:text-[#ffffff]/20 rounded-lg w-[100%] mb-2 bg-[#363D3E] px-4 py-3 focus-visible:outline-[1px] focus-visible:outline-[#75CDFF]"
           onChange={(e) => onInputChangeHandler(e, "firstName")}
           value={userData.firstName}
-
-
         />
         <input
           type="text"
@@ -57,7 +56,6 @@ const SignUpForm = () => {
           className="placeholder:text-[#ffffff]/20 rounded-lg w-[100%] bg-[#363D3E] px-4 py-3 focus-visible:outline-[1px] focus-visible:outline-[#75CDFF]"
           onChange={(e) => onInputChangeHandler(e, "lastName")}
           value={userData.lastName}
-
         />
       </div>
       <div className="w-[100%] mb-2">
@@ -68,8 +66,6 @@ const SignUpForm = () => {
           placeholder="Email"
           value={userData.email}
           autoComplete="off"
-
-
         />
       </div>
       <div className="w-[100%] mb-4">
@@ -80,7 +76,6 @@ const SignUpForm = () => {
           placeholder="Password"
           value={userData.password}
           autoComplete="new-password"
-
         />
         <Image
           src={showPassword ? closedEye : openEye}
