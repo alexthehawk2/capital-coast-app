@@ -32,7 +32,9 @@ import spinnerIcon from "./spinner.svg";
 import codeVerified from "./code-verified.gif";
 import lockDynamic from "./lock-dynamic.gif";
 import lockStatic from "./lock-static.svg";
+import logoutIcon from "./logout-icon.png";
 export {
+  logoutIcon,
   lockDynamic,
   lockStatic,
   codeVerified,
