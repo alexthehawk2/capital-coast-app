@@ -134,7 +134,7 @@ const Profile = ({ onOpen }) => {
   };
   const verifyBtnState = useSelector((state) => state.userDetail.activeStatus);
   return (
-    <form className="flex p-5 flex-col w-[100%] text-white bg-[#232020] mt-6 rounded-[10px]">
+    <form className="flex py-5 px-14 flex-col w-[100%] text-white bg-[#232020] mt-6 rounded-t-[10px]">
       <EmailChangeModal
         changeToEmail={userData.email}
         ref={modalRef}
@@ -142,8 +142,10 @@ const Profile = ({ onOpen }) => {
         lastName={userData.lastName}
         setUserData={setUserData}
       />
-      <h1 className="text-center text-2xl font-bold my-2">Profile Details</h1>
-      <div className="p-4 bg-[#3D3939] rounded-[10px] mb-4 input-transition">
+      <h1 className="text-center text-2xl font-bold mt-2 mb-7">
+        Profile Details
+      </h1>
+      <div className="px-4 py-2 bg-[#3D3939] rounded-[10px] mb-4 input-transition sm:w-[50%]">
         <div className="w-[100%] label-wrapper">
           <label
             htmlFor="firstName"
@@ -161,7 +163,7 @@ const Profile = ({ onOpen }) => {
           onChange={(e) => inputOnChangeHandler(e, "firstName")}
         />
       </div>
-      <div className="p-4 bg-[#3D3939] rounded-[10px] mb-4 input-transition">
+      <div className="px-4 py-2 bg-[#3D3939] rounded-[10px] mb-4 input-transition sm:w-[50%]">
         <div className="w-[100%] label-wrapper">
           <label
             htmlFor="lastName"
@@ -180,25 +182,39 @@ const Profile = ({ onOpen }) => {
         />
       </div>
       <div>
-        <div className="p-4 bg-[#3D3939] rounded-[10px] mb-4 input-transition">
-          <div className="w-[100%] label-wrapper">
-            <label
-              htmlFor="email"
-              className="text-sm inline-block label-transition font-bold"
-            >
-              Email Address
-            </label>
+        <div className="flex items-center">
+          <div className="px-4 py-2 bg-[#3D3939] rounded-[10px] mb-4 input-transition w-[100%] sm:w-[50%] ">
+            <div className="w-[100%] label-wrapper">
+              <label
+                htmlFor="email"
+                className="text-sm inline-block label-transition font-bold"
+              >
+                Email Address
+              </label>
+            </div>
+            <input
+              className="bg-transparent focus:outline-none w-[100%]"
+              name="email"
+              type="email"
+              value={userData.email}
+              onChange={(e) => inputOnChangeHandler(e, "email")}
+            />
           </div>
-          <input
-            className="bg-transparent focus:outline-none w-[100%]"
-            name="email"
-            type="email"
-            value={userData.email}
-            onChange={(e) => inputOnChangeHandler(e, "email")}
-          />
+          {!verifyBtnState && (
+            <div className="mb-4 hidden sm:block ml-[2rem]">
+              <Button
+                name={"Verify Email Address"}
+                width="w-[100%]"
+                handlerFunction={handleVerifyEmail}
+                icon={loading}
+                iconSrc={spinnerIcon}
+                isDisabled={loading}
+              />
+            </div>
+          )}
         </div>
         {!verifyBtnState && (
-          <div className="mb-4">
+          <div className="mb-4 sm:hidden">
             <Button
               name={"Verify Email Address"}
               width="w-[100%]"
@@ -210,13 +226,16 @@ const Profile = ({ onOpen }) => {
           </div>
         )}
       </div>
-      <Button2
-        name={"Edit Profile Details"}
-        disabled={!profileEdit}
-        handlerFunction={profileEditSubmitHandler}
-        icon={profileEditLoading}
-        iconSrc={spinnerIcon}
-      />
+      <div className="flex justify-center">
+        <Button2
+          width={"w-[100%] sm:w-fit"}
+          name={"Edit Profile Details"}
+          disabled={!profileEdit}
+          handlerFunction={profileEditSubmitHandler}
+          icon={profileEditLoading}
+          iconSrc={spinnerIcon}
+        />
+      </div>
     </form>
   );
 };

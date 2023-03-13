@@ -29,11 +29,11 @@ const _Profile = () => {
           </ModalBody>
         </ModalContent>
       </Modal>
-      <div className="bg-black w-[100%] h-[auto] p-5 main">
+      <div className="bg-black w-[100%] h-[auto] p-5 main min-h-[100vh]">
         <div className="flex justify-center sm:justify-start">
           <Image src={logo} alt="capital coast logo" height={100} width={200} />
         </div>
-        <div className="sm:pl-[10rem]">
+        <div className="sm:pr-[3rem] sm:pl-[10rem]">
           <Sidebar />
           <Profile onOpen={onOpen} />
           <ChangePassword />
