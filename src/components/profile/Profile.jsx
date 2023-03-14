@@ -8,7 +8,9 @@ import { useToast } from "@chakra-ui/react";
 import { setProfileData, setUserDetail } from "@/features/user/userDetail";
 import EmailChangeModal from "../Modals/EmailChangeModal";
 import { getCookie } from "../utilities/helpers/helpers";
-
+import ChangePassword from "./ChangePassword";
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import AccountDetails from "./AccountDetails";
 const Profile = ({ onOpen }) => {
   const toast = useToast();
   const [profileEdit, setProfileEdit] = useState(false);
@@ -132,111 +134,136 @@ const Profile = ({ onOpen }) => {
       });
     }
   };
+  const [selectedTab, setSelectedTab] = useState("");
   const verifyBtnState = useSelector((state) => state.userDetail.activeStatus);
   return (
-    <form className="flex py-5 px-14 flex-col w-[100%] text-white bg-[#232020] mt-6 rounded-t-[10px]">
-      <EmailChangeModal
-        changeToEmail={userData.email}
-        ref={modalRef}
-        firstName={userData.firstName}
-        lastName={userData.lastName}
-        setUserData={setUserData}
-      />
-      <h1 className="text-center text-2xl font-bold mt-2 mb-7">
-        Profile Details
-      </h1>
-      <div className="px-4 py-2 bg-[#3D3939] rounded-[10px] mb-4 input-transition sm:w-[50%]">
-        <div className="w-[100%] label-wrapper">
-          <label
-            htmlFor="firstName"
-            className="text-sm inline-block label-transition font-bold"
-          >
-            First Name
-          </label>
-        </div>
-        <input
-          className="bg-transparent focus:outline-none float-input w-[100%] "
-          name="firstName"
-          id="firstName"
-          type="text"
-          value={userData.firstName}
-          onChange={(e) => inputOnChangeHandler(e, "firstName")}
+    <>
+      <form className="flex py-5 px-4 sm:px-14 flex-col w-[100%] text-white bg-[#232020] mt-6 rounded-[10px]">
+        <EmailChangeModal
+          changeToEmail={userData.email}
+          ref={modalRef}
+          firstName={userData.firstName}
+          lastName={userData.lastName}
+          setUserData={setUserData}
         />
-      </div>
-      <div className="px-4 py-2 bg-[#3D3939] rounded-[10px] mb-4 input-transition sm:w-[50%]">
-        <div className="w-[100%] label-wrapper">
-          <label
-            htmlFor="lastName"
-            className="text-sm  inline-block label-transition font-bold"
-          >
-            Last Name
-          </label>
-        </div>
-        <input
-          className="bg-transparent focus:outline-none w-[100%]"
-          name="lastName"
-          id="lastName"
-          type="text"
-          value={userData.lastName}
-          onChange={(e) => inputOnChangeHandler(e, "lastName")}
-        />
-      </div>
-      <div>
-        <div className="flex items-center">
-          <div className="px-4 py-2 bg-[#3D3939] rounded-[10px] mb-4 input-transition w-[100%] sm:w-[50%] ">
-            <div className="w-[100%] label-wrapper">
-              <label
-                htmlFor="email"
-                className="text-sm inline-block label-transition font-bold"
-              >
-                Email Address
-              </label>
-            </div>
-            <input
-              className="bg-transparent focus:outline-none w-[100%]"
-              name="email"
-              type="email"
-              value={userData.email}
-              onChange={(e) => inputOnChangeHandler(e, "email")}
-            />
-          </div>
-          {!verifyBtnState && (
-            <div className="mb-4 hidden sm:block ml-[2rem]">
-              <Button
-                name={"Verify Email Address"}
-                width="w-[100%]"
-                handlerFunction={handleVerifyEmail}
-                icon={loading}
-                iconSrc={spinnerIcon}
-                isDisabled={loading}
-              />
-            </div>
-          )}
-        </div>
-        {!verifyBtnState && (
-          <div className="mb-4 sm:hidden">
-            <Button
-              name={"Verify Email Address"}
-              width="w-[100%]"
-              handlerFunction={handleVerifyEmail}
-              icon={loading}
-              iconSrc={spinnerIcon}
-              isDisabled={loading}
-            />
-          </div>
-        )}
-      </div>
-      <div className="flex justify-center">
-        <Button2
-          width={"w-[100%] sm:w-fit"}
-          name={"Edit Profile Details"}
-          disabled={!profileEdit}
-          handlerFunction={profileEditSubmitHandler}
-          icon={profileEditLoading}
-          iconSrc={spinnerIcon}
-        />
-      </div>
-    </form>
+        <Tabs
+          variant="capitalCoast"
+          onChange={(index) =>
+            setSelectedTab(index === 0 ? "profile" : "accountDetails")
+          }
+        >
+          <TabList>
+            <Tab index={0}>Profile</Tab>
+            <Tab isDisabled={!verifyBtnState} index={1}>
+              Account Details
+            </Tab>
+          </TabList>
+
+          <TabPanels>
+            <TabPanel>
+              <h1 className="text-center text-2xl font-bold mt-2 mb-7">
+                Profile Details
+              </h1>
+              <div className="px-4 py-2 bg-[#3D3939] rounded-[10px] mb-4 input-transition sm:w-[50%]">
+                <div className="w-[100%] label-wrapper">
+                  <label
+                    htmlFor="firstName"
+                    className="text-sm inline-block label-transition font-bold"
+                  >
+                    First Name
+                  </label>
+                </div>
+                <input
+                  className="bg-transparent focus:outline-none float-input w-[100%] "
+                  name="firstName"
+                  id="firstName"
+                  type="text"
+                  value={userData.firstName}
+                  onChange={(e) => inputOnChangeHandler(e, "firstName")}
+                />
+              </div>
+              <div className="px-4 py-2 bg-[#3D3939] rounded-[10px] mb-4 input-transition sm:w-[50%]">
+                <div className="w-[100%] label-wrapper">
+                  <label
+                    htmlFor="lastName"
+                    className="text-sm  inline-block label-transition font-bold"
+                  >
+                    Last Name
+                  </label>
+                </div>
+                <input
+                  className="bg-transparent focus:outline-none w-[100%]"
+                  name="lastName"
+                  id="lastName"
+                  type="text"
+                  value={userData.lastName}
+                  onChange={(e) => inputOnChangeHandler(e, "lastName")}
+                />
+              </div>
+              <div>
+                <div className="flex items-center">
+                  <div className="px-4 py-2 bg-[#3D3939] rounded-[10px] mb-4 input-transition w-[100%] sm:w-[50%] ">
+                    <div className="w-[100%] label-wrapper">
+                      <label
+                        htmlFor="email"
+                        className="text-sm inline-block label-transition font-bold"
+                      >
+                        Email Address
+                      </label>
+                    </div>
+                    <input
+                      className="bg-transparent focus:outline-none w-[100%]"
+                      name="email"
+                      type="email"
+                      value={userData.email}
+                      onChange={(e) => inputOnChangeHandler(e, "email")}
+                    />
+                  </div>
+                  {!verifyBtnState && (
+                    <div className="mb-4 hidden sm:block ml-[2rem]">
+                      <Button
+                        name={"Verify Email Address"}
+                        width="w-[100%]"
+                        handlerFunction={handleVerifyEmail}
+                        icon={loading}
+                        iconSrc={spinnerIcon}
+                        isDisabled={loading}
+                      />
+                    </div>
+                  )}
+                </div>
+                {!verifyBtnState && (
+                  <div className="mb-4 sm:hidden">
+                    <Button
+                      name={"Verify Email Address"}
+                      width="w-[100%]"
+                      handlerFunction={handleVerifyEmail}
+                      icon={loading}
+                      iconSrc={spinnerIcon}
+                      isDisabled={loading}
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="flex justify-center">
+                <Button2
+                  width={"w-[100%] sm:w-fit"}
+                  name={"Edit Profile Details"}
+                  disabled={!profileEdit}
+                  handlerFunction={profileEditSubmitHandler}
+                  icon={profileEditLoading}
+                  iconSrc={spinnerIcon}
+                />
+              </div>
+              <ChangePassword />
+            </TabPanel>
+            <TabPanel>
+              <AccountDetails selectedTab={selectedTab} />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </form>
+    </>
   );
 };
 

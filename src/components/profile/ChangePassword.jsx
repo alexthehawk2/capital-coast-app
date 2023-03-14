@@ -51,8 +51,8 @@ const ChangePassword = () => {
   return (
     <div className="mb-[6.5rem] sm:mb-0">
       <div className="flex flex-col">
-        <form className="flex px-14 pt-0 pb-5 flex-col w-[100%] text-white bg-[#232020] rounded-b-[10px]">
-          <h1 className="text-center text-2xl font-bold mb-7 mt-2">
+        <div className="flex pt-0 pb-5 flex-col w-[100%] text-white bg-[#232020] rounded-b-[10px]">
+          <h1 className="text-center text-2xl font-bold mb-7 mt-7">
             Change Password
           </h1>
           <div className="w-[100%] flex">
@@ -110,7 +110,7 @@ const ChangePassword = () => {
               handlerFunction={handlePasswordChange}
             />
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

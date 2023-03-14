@@ -1,6 +1,5 @@
 import { logo } from "@/assets";
 import Sidebar from "@/components/navigation/Sidebar";
-import ChangePassword from "@/components/profile/ChangePassword";
 import Profile from "@/components/profile/Profile";
 import Image from "next/image";
 import React from "react";
@@ -14,7 +13,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import EmailVerifyForm from "@/components/Auth/Forms/EmailVerifyForm";
-
 const _Profile = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -36,7 +34,6 @@ const _Profile = () => {
         <div className="sm:pr-[3rem] sm:pl-[10rem]">
           <Sidebar />
           <Profile onOpen={onOpen} />
-          <ChangePassword />
         </div>
       </div>
     </>
