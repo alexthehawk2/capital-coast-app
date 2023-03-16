@@ -33,11 +33,11 @@ import codeVerified from "./code-verified.gif";
 import lockDynamic from "./lock-dynamic.gif";
 import lockStatic from "./lock-static.svg";
 import logoutIcon from "./logout-icon.png";
-import hamburgerIcon from "./hamburgerIcon.png";
-import ham2 from "./test.gif";
+import hamStatic from "./ham-stat-2.svg";
+import hamEffect from "./ham-effect.gif";
 export {
-  ham2,
-  hamburgerIcon,
+  hamStatic,
+  hamEffect,
   logoutIcon,
   lockDynamic,
   lockStatic,

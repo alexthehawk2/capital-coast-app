@@ -1,12 +1,13 @@
 import Image from "next/image";
 import React from "react";
-import { hamburgerIcon, logo } from "@/assets";
-
+import { logo, hamEffect, hamStatic } from "@/assets";
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [menuIcon, setMenuIcon] = React.useState(hamStatic);
   const navItems = ["Home", "Home", "Home"];
   const toggle = () => {
     setIsOpen(!isOpen);
+    setMenuIcon(isOpen ? hamStatic : hamEffect);
   };
   return (
     <>
@@ -15,15 +16,7 @@ const Navbar = () => {
           <Image src={logo} alt="logo" width={120} />
         </div>
         <div className="nav-item flex justify-end" onClick={toggle}>
-          <Image
-            src={hamburgerIcon}
-            alt="logo"
-            width={50}
-            className="mr-2"
-            attributes={{
-              loop: false,
-            }}
-          />
+          <Image src={menuIcon} alt="logo" className="mr-2 ham-icon" />
         </div>
         <ul
           className={`text-white nav-item nav-menu ${

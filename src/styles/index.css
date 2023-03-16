@@ -233,3 +233,7 @@ body {
   max-height: 0;
   transition: all 0.5s ease-in-out;
 }
+.ham-icon {
+  width: 46px;
+  height: 46px;
+}
