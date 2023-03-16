@@ -16,7 +16,17 @@ const AccountDetails = ({ selectedTab }) => {
     if (selectedTab === "accountDetails") {
       setLoading(true);
       getAPI("/api/profile/get-account-details").then((res) => {
-        // setAccountData(res.data);
+        setAccountData(() => {
+          return {
+            accountNumber: res.response.account.accountNumber,
+            balance: {
+              available: res.response.account.accountBalance.balance,
+              currency: res.response.account.accountBalance.currency,
+            },
+            accountStatus: res.response.account.accountStatus,
+            accountType: res.response.account.accountType,
+          };
+        });
         setLoading(false);
       });
     }

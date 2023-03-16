@@ -5,5 +5,5 @@ export default async function getAccountDetailsHandler(req, res) {
   const response = await getAPI(
     `http://localhost:3001/api/accounts?get-account-details=${userId}`
   );
-  res.json({ response, status: 1 });
+  res.status(200).json({ response });
 }
