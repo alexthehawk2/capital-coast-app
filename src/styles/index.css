@@ -263,3 +263,15 @@ body {
     margin-right: 0.5rem;
   }
 }
+select {
+  background-image: url("/select-arrow-down.png");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  padding-right: 38px !important;
+  -webkit-appearance: none; /* removes default styling for Safari */
+  -moz-appearance: none; /* removes default styling for Firefox */
+  appearance: none;
+}
+.dollar-symbol {
+  font-family: "calibri";
+}

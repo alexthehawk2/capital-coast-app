@@ -65,12 +65,11 @@ const Navbar = () => {
           ))}
         </ul>
         <div className=" w-[3.2rem] mr-[3rem] p-1 hidden ss:block">
-          <div className="rounded-full h-[100%] text-white flex justify-center items-center bg-[#5D9C59]">
+          <div className="rounded-full h-[100%] text-white flex justify-center items-center bg-[#5D9C59] font-semibold">
             {user[0].toUpperCase()}
           </div>
         </div>
       </nav>
-      {/* <div style={{ backgroundColor: "skyblue", height: "100px" }}></div> */}
     </>
   );
 };
