@@ -12,7 +12,7 @@ export default function loginHandler(req, resp) {
           path: "/",
           maxAge: 60 * 60,
           sameSite: "strict",
-          secure: true,
+          // secure: true,
           httpOnly: true,
         })
       );
