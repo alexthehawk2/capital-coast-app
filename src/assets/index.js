@@ -41,8 +41,9 @@ import arrowUp2 from "./arrow-up-30.png";
 import arrowUp15 from "./arrow-up-15.png";
 import arrowDown15 from "./arrow-down-15.png";
 import moneyLocked from "./money-locked-icon.png";
-
+import settings from "./settings.svg";
 export {
+  settings,
   moneyLocked,
   arrowUp15,
   arrowDown15,

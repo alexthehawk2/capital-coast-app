@@ -12,6 +12,7 @@ const Card = ({ bgColor, px, py, children, flex, width, justifyCenter }) => {
     full: "w-[100%]",
     half: "w-[50%]",
     cust76: "w-[76px]",
+    cust33: "w-[33%]",
   };
   const paddingX = {
     1: "px-1",
@@ -21,7 +22,7 @@ const Card = ({ bgColor, px, py, children, flex, width, justifyCenter }) => {
     6: "px-6",
     7: "px-7",
     10: "px-10",
-    14: "px-14",
+    12: "px-12",
   };
   const paddingY = {
     1: "py-1",
@@ -31,7 +32,7 @@ const Card = ({ bgColor, px, py, children, flex, width, justifyCenter }) => {
     6: "py-6",
     7: "py-7",
     10: "py-10",
-    14: "py-14",
+    12: "py-12",
   };
   const isFlex = "flex";
   const isJustifiedCenter = "justify-center";

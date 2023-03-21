@@ -12,8 +12,8 @@ import Card from "../common/Card";
 const Balance = () => {
   return (
     <div className="text-white">
-      <div className="flex w-[100%] justify-between items-center mx-0 ss:mx-8 mb-5">
-        <h1 className="font-bold text-xl">My Balance</h1>
+      <div className="flex w-[100%] justify-between items-center mx-0 ss:mx-8 mb-5 ss:mt-12">
+        <h1 className="font-bold text-2xl">My Balance</h1>
         <select className="bg-[#1b1d21] p-2 rounded-lg text-[#B4B6BA] mr-0 ss:mr-[3.5rem]">
           <option value="option1">Select Range</option>
           <option value="option2">Option 2</option>
@@ -24,7 +24,7 @@ const Balance = () => {
         <div className="w-[100%] ss:w-[50%]">
           <Card bgColor={"#131519"} px={2} py={2} flex justifyCenter>
             <div className="mx-4">
-              <Image src={moneyPot} alt="moneypot" width={50} />
+              <Image src={moneyPot} alt="money-pot" width={50} />
             </div>
             <div className="min-w-[136px]">
               <p className="text-[#B4B6BA] mb-4 max-w-[160px]">

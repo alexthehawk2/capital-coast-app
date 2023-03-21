@@ -1,10 +1,9 @@
-import { logo, moneyLocked } from "@/assets";
-import Image from "next/image";
 import React from "react";
 import Card from "../common/Card";
 import Navbar from "../navigation/Navbar";
 import Balance from "./Balance";
 import Hero from "./Hero";
+import TransferMoney from "./TransferMoney";
 
 const Dashboard = () => {
   return (
@@ -21,11 +20,9 @@ const Dashboard = () => {
             </Card>
           </div>
         </div>
-        <div className="ss:w-[30%] bg-[#2D2E37]">
-          <div className="">
-            <Image src={moneyLocked} alt="test" />
-          </div>
-        </div>
+        <Card bgColor={"#2D2E37"} width="cust33" px="10" py={"12"}>
+          <TransferMoney />
+        </Card>
       </Hero>
     </>
   );
