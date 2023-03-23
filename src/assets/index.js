@@ -42,7 +42,11 @@ import arrowUp15 from "./arrow-up-15.png";
 import arrowDown15 from "./arrow-down-15.png";
 import moneyLocked from "./money-locked-icon.png";
 import settings from "./settings.svg";
+import bankBuilding from "./bank-building-64.png";
+import paypal from "./paypal-64.png";
 export {
+  paypal,
+  bankBuilding,
   settings,
   moneyLocked,
   arrowUp15,

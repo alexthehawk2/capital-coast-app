@@ -1,12 +1,24 @@
 import React from "react";
 
-const Card = ({ bgColor, px, py, children, flex, width, justifyCenter }) => {
+const Card = ({
+  bgColor,
+  px,
+  py,
+  children,
+  flex,
+  width,
+  justifyCenter,
+  mx,
+  my,
+}) => {
   const bgVariants = {
     "#1b1d21": "bg-[#1b1d21]",
     "#131519": "bg-[#131519]",
     "#2D2E37": "bg-[#2D2E37]",
     "#65DB98": "bg-[#65DB98]",
     "#E26B8D": "bg-[#E26B8D]",
+    "#1C1D21": "bg-[#1C1D21]",
+    "#63DA9E": "bg-[#63DA9E]",
   };
   const widthVariants = {
     full: "w-[100%]",
@@ -34,6 +46,22 @@ const Card = ({ bgColor, px, py, children, flex, width, justifyCenter }) => {
     10: "py-10",
     12: "py-12",
   };
+  const marginX = {
+    1: "mx-1",
+    2: "mx-2",
+    4: "mx-4",
+    5: "mx-5",
+    6: "mx-6",
+    7: "mx-7",
+  };
+  const marginY = {
+    1: "my-1",
+    2: "my-2",
+    4: "my-4",
+    5: "my-5",
+    6: "my-6",
+    7: "my-7",
+  };
   const isFlex = "flex";
   const isJustifiedCenter = "justify-center";
   return (
@@ -42,7 +70,9 @@ const Card = ({ bgColor, px, py, children, flex, width, justifyCenter }) => {
         px ? paddingX[px] : "px-4"
       } ${py ? paddingY[py] : "py-4"} rounded-lg ${
         justifyCenter ? isJustifiedCenter : ""
-      } ${flex ? isFlex : ""} ${width ? widthVariants[width] : ""}`}
+      } ${flex ? isFlex : ""} ${width ? widthVariants[width] : ""} ${
+        mx ? marginX[mx] : ""
+      } ${my ? marginY[my] : ""}`}
     >
       {children}
     </div>

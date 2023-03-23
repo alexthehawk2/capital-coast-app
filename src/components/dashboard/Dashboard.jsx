@@ -3,6 +3,7 @@ import Card from "../common/Card";
 import Navbar from "../navigation/Navbar";
 import Balance from "./Balance";
 import Hero from "./Hero";
+import TransactionSummary from "./TransactionSummary";
 import TransferMoney from "./TransferMoney";
 
 const Dashboard = () => {
@@ -16,7 +17,7 @@ const Dashboard = () => {
           </Card>
           <div className="mt-4">
             <Card bgColor={"#1b1d21"} px="5" py="4">
-              <div className="w-[100%] h-[200px]"></div>
+              <TransactionSummary />
             </Card>
           </div>
         </div>

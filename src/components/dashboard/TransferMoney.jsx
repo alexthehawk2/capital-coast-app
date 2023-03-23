@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { settings } from "@/assets";
+import { bankBuilding, paypal, settings } from "@/assets";
 import Card from "../common/Card";
 
 const TransferMoney = () => {
@@ -12,7 +12,40 @@ const TransferMoney = () => {
           <Image src={settings} alt="settings icon" width={30} />
         </div>
       </div>
-      <Card width={'full'} px="4" py={}></Card>
+      <Card width={"full"} px="4" py="4" bgColor="#1C1D21" my="4">
+        <div className="flex">
+          <div className="mr-4 px-6 py-3 bg-[#E36B8D] rounded-md">
+            <Image src={bankBuilding} alt="settings icon" width={35} />
+          </div>
+          <div>
+            <p className="mb-2 text-white font-semibold">**** 8462</p>
+            <p className="italic text-[#B4B6BA]">City Bank</p>
+          </div>
+        </div>
+      </Card>
+      <Card width={"full"} px="4" py="4" bgColor="#1C1D21" my="4">
+        <div className="flex">
+          <div className="mr-4 px-6 py-3 bg-[#7DAAE6] rounded-md">
+            <Image src={paypal} alt="settings icon" width={35} />
+          </div>
+          <div>
+            <p className="mb-2 text-white font-semibold">troy_gem@yahoo...</p>
+            <p className="italic text-[#B4B6BA]">Paypal</p>
+          </div>
+        </div>
+      </Card>
+      <div className="">
+        <Card width={"full"} px="4" py="4" bgColor="#63DA9E" my="4">
+          <button className="w-[100%] font-semibold">Transfer Amount</button>
+        </Card>
+      </div>
+
+      <p className=" text-[#9B9C9F] text-center">
+        <span>*</span>
+        <span className="underline font-medium">
+          you can transfer amount easily to any of the linked accounts
+        </span>
+      </p>
     </div>
   );
 };
