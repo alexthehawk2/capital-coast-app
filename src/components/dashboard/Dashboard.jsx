@@ -16,7 +16,7 @@ const Dashboard = () => {
             <Balance />
           </Card>
           <div className="mt-4">
-            <Card bgColor={"#1b1d21"} px="5" py="4">
+            <Card bgColor={"#1b1d21"} px="5" py="10">
               <TransactionSummary />
             </Card>
           </div>

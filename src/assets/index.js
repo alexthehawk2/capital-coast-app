@@ -44,7 +44,13 @@ import moneyLocked from "./money-locked-icon.png";
 import settings from "./settings.svg";
 import bankBuilding from "./bank-building-64.png";
 import paypal from "./paypal-64.png";
+import people1 from "./people-1.jpg";
+import people2 from "./people-2.jpg";
+import people3 from "./people-3.jpg";
 export {
+  people1,
+  people2,
+  people3,
   paypal,
   bankBuilding,
   settings,
