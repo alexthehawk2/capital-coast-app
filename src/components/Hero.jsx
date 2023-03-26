@@ -15,10 +15,9 @@ const Hero = () => {
       >
         <div className="flex flex-row items-center py-[6px] px-4 bg-discount-gradient rounded-[10px] mb-2 text-[12px]">
           <Image src={discount} alt="discount" className="w-[32px] h-[32px]" />
-          <span className="ml-1">20%&nbsp;</span>
-          <span className="opacity-60">DISCOUNT FOR&nbsp;</span>
-          <span>1 MONTH&nbsp;</span>
-          <span className="opacity-60"> ACCOUNT</span>
+          <span className="ml-1">Get 25$&nbsp;</span>
+          <span className="opacity-60">on first&nbsp;</span>
+          <span>transaction&nbsp;</span>
         </div>
         <div className="flex flex-row items-center justify-between w-full">
           <h1 className={styles.heading}>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 import { Button, Card } from "../components";
@@ -16,8 +17,9 @@ const Business = () => {
           building credit, earning rewards and saving money. But with hundreds
           of credit cards on the market.
         </p>
-
-        <Button />
+        <Link href="/signup" className="w-fit">
+          <Button />
+        </Link>
       </div>
       <div className=" sm:ml-5">
         {features.map((feature, index) => {

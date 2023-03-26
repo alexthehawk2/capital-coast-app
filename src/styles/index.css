@@ -3,7 +3,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+html {
+  height: 100%;
+}
 :root {
   --black-gradient: linear-gradient(
     144.39deg,
@@ -19,7 +21,10 @@
 }
 body {
   font-family: "Poppins", sans-serif;
+  width: 100%;
+  height: 100%;
 }
+
 .text-gradient {
   background: radial-gradient(
     64.18% 64.18% at 71.16% 35.69%,
@@ -171,4 +176,120 @@ body {
 .toaster {
   -webkit-animation: fadeIn 2s ease-in-out;
   animation: fadeIn 2s ease-in-out;
+}
+.label-transition {
+  margin-left: 0;
+  transform: translateX(0);
+  transition: all 2s ease;
+}
+.input-transition:focus-within .label-transition {
+  color: #2476f1;
+  margin: auto;
+  transform: translateX(50%);
+  transition: all 2s ease;
+}
+
+.error-message {
+  color: #f56565;
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.error-message.show {
+  opacity: 1;
+}
+
+.error-message.hide {
+  opacity: 0;
+}
+#verified {
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#verified2 {
+  top: 14%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.blur-effect > *:not(#verified, #verified2) {
+  filter: blur(5px);
+  pointer-events: none;
+}
+.chakra-tabs__tab:first-child {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.chakra-tabs__tab:last-child {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+.nav-item {
+  flex: 1 0 0;
+}
+@media (min-width: 620px) {
+  .nav-item {
+    flex: 0 1 auto;
+  }
+}
+.nav-menu {
+  flex-basis: 100%;
+  max-height: 100px;
+  transition: all 0.5s ease-in-out;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.nav-hide {
+  max-height: 0;
+  transition: all 0.5s ease-in-out;
+}
+.ham-icon {
+  width: 46px;
+  height: 46px;
+}
+.nav-li a {
+  margin-right: 3rem;
+  color: #9fa3a8;
+}
+.nav-li a.active {
+  color: #fdfdfe;
+}
+.nav-li:last-child {
+  margin-right: 0;
+}
+@media (max-width: 620px) {
+  .nav-li a {
+    margin-right: 0;
+  }
+  .nav-li:last-child {
+    margin-right: 0.5rem;
+  }
+}
+select {
+  background-image: url("/select-arrow-down.png");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  padding-right: 38px !important;
+  -webkit-appearance: none; /* removes default styling for Safari */
+  -moz-appearance: none; /* removes default styling for Firefox */
+  appearance: none;
+}
+.dollar-symbol {
+  font-family: "calibri";
+}
+@media only screen and (max-width: 450px) {
+  html {
+    font-size: 12px;
+  }
+}
+html,
+body,
+form,
+main {
+  height: 100%;
+}
+.img-for-joined-waves {
+  margin-left: -7px;
 }

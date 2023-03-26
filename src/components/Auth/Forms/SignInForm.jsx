@@ -2,15 +2,35 @@ import React, { useEffect, useState } from "react";
 import AuthButtons from "../AuthButtons";
 import openEye from "../../../assets/openEye.svg";
 import closedEye from "../../../assets/closedEye.svg";
-import Cookies from "js-cookie";
 import postAPI from "../../utilities/helpers/postApi";
+import { useDispatch } from "react-redux";
 import Image from "next/image";
-const SignInForm = ({ toggleToaster }) => {
+import { setUserDetail } from "@/features/user/userDetail";
+import { useRouter } from "next/router";
+import { toggleToaster } from "@/components/utilities/helpers/helpers";
+const SignInForm = ({ setDisplayToaster }) => {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  function parseJwt(token) {
+    let base64Url = token.split(".")[1];
+    let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    let jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+
+    return JSON.parse(jsonPayload);
+  }
 
   const onInputChangeHandler = (e, type) => {
     setUserData({
@@ -22,22 +42,25 @@ const SignInForm = ({ toggleToaster }) => {
     setShowPassword(!showPassword);
   };
   const onSubmitHandler = () => {
-    try {
-      postAPI(
-        "https://capital-coast-server.onrender.com/api/login",
-        userData
-      ).then((res) => {
-        throw new Error("Error");
+    const apiRoute = "/api/auth/login";
+    postAPI(apiRoute, userData).then((res) => {
+      try {
         if (res) {
-          if (res.status === 0) {
-            toggleToaster(res.message);
+          if (res.status === "0") {
+            toggleToaster(res.message, setDisplayToaster);
+          } else if (res.status === "1") {
+            const { token } = res;
+            const user = parseJwt(token);
+            dispatch(setUserDetail(user));
+            router.push("/dashboard/profile");
           }
         }
-      });
-    } catch (err) {
-      toggleToaster(err.message);
-    }
+      } catch (e) {
+        toggleToaster(e.message, setDisplayToaster);
+      }
+    });
   };
+
   return (
     <form>
       <div className="w-[100%] mb-2">

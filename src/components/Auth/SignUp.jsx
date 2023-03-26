@@ -8,11 +8,16 @@ import {
   googleAuthIcon,
   logo,
 } from "../../assets";
+import Toaster from "../utilities/Toaster";
 import AuthButtons from "./AuthButtons";
 import SignUpForm from "./Forms/SignUpForm";
 const SignUp = () => {
+  const [displayToaster, setDisplayToaster] = React.useState(false);
+
   return (
     <>
+      {displayToaster && <Toaster toggleDisplay={displayToaster} />}
+
       <div className="w-[40%] h-[100%] hidden sm:flex text-white px-10 py-5 sm:flex-col sm:items-center">
         <Image
           src={logo}
@@ -60,7 +65,7 @@ const SignUp = () => {
               </div>
             </div>
             <div className="px-5 mb-2">
-              <SignUpForm />
+              <SignUpForm setDisplayToaster={setDisplayToaster} />
             </div>
             <p className="text-center mb-2">
               Already have an account ?{" "}

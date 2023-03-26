@@ -27,8 +27,51 @@ import newWhiteLogo from "./CapitalCoast.png";
 import googleAuthIcon from "./GoogleAuthIcon.svg";
 import appleAuthIcon from "./AppleAuthIcon.svg";
 import authShield from "./AuthShield.svg";
-
+import profileIcon from "./profileIcon.svg";
+import spinnerIcon from "./spinner.svg";
+import codeVerified from "./code-verified.gif";
+import lockDynamic from "./lock-dynamic.gif";
+import lockStatic from "./lock-static.svg";
+import logoutIcon from "./logout-icon.png";
+import hamStatic from "./ham-stat-2.svg";
+import hamEffect from "./ham-effect.gif";
+import moneyPot from "./money-pot-icon.png";
+import arrowDown from "./arrow-down-30.png";
+import arrowUp2 from "./arrow-up-30.png";
+import arrowUp15 from "./arrow-up-15.png";
+import arrowDown15 from "./arrow-down-15.png";
+import moneyLocked from "./money-locked-icon.png";
+import settings from "./settings.svg";
+import bankBuilding from "./bank-building-64.png";
+import paypal from "./paypal-64.png";
+import people1 from "./people-1.jpg";
+import people2 from "./people-2.jpg";
+import people3 from "./people-3.jpg";
+import sortingIcon from "./sorting-icon.png";
+import bank2 from "./bank-2.png";
 export {
+  bank2,
+  sortingIcon,
+  people1,
+  people2,
+  people3,
+  paypal,
+  bankBuilding,
+  settings,
+  moneyLocked,
+  arrowUp15,
+  arrowDown15,
+  arrowUp2,
+  arrowDown,
+  moneyPot,
+  hamStatic,
+  hamEffect,
+  logoutIcon,
+  lockDynamic,
+  lockStatic,
+  codeVerified,
+  spinnerIcon,
+  profileIcon,
   authShield,
   googleAuthIcon,
   appleAuthIcon,

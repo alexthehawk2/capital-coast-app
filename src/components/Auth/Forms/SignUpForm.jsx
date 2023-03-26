@@ -3,7 +3,9 @@ import AuthButtons from "../AuthButtons";
 import openEye from "../../../assets/openEye.svg";
 import closedEye from "../../../assets/closedEye.svg";
 import Image from "next/image";
-const SignUpForm = () => {
+import postAPI from "@/components/utilities/helpers/postApi";
+import { toggleToaster } from "@/components/utilities/helpers/helpers";
+const SignUpForm = ({ setDisplayToaster }) => {
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -21,8 +23,25 @@ const SignUpForm = () => {
   const togglePasswordDisplay = () => {
     setShowPassword(!showPassword);
   };
+
+  const onSubmitHandler = () => {
+    const apiRoute = "/api/auth/signup";
+    postAPI(apiRoute, userData).then((res) => {
+      try {
+        if (res) {
+          if (res.status === "0") {
+            toggleToaster(res.message, setDisplayToaster);
+          } else if (res.status === "1") {
+            window.location.href = "/dashboard/profile";
+          }
+        }
+      } catch (e) {
+        toggleToaster(e.message, setDisplayToaster);
+      }
+    });
+  };
   return (
-    <form>
+    <form autoComplete="off">
       <div className="mb-2">
         <input
           type="text"
@@ -46,6 +65,7 @@ const SignUpForm = () => {
           onChange={(e) => onInputChangeHandler(e, "email")}
           placeholder="Email"
           value={userData.email}
+          autoComplete="off"
         />
       </div>
       <div className="w-[100%] mb-4">
@@ -55,6 +75,7 @@ const SignUpForm = () => {
           onChange={(e) => onInputChangeHandler(e, "password")}
           placeholder="Password"
           value={userData.password}
+          autoComplete="new-password"
         />
         <Image
           src={showPassword ? closedEye : openEye}
@@ -74,7 +95,7 @@ const SignUpForm = () => {
         </a>
         .
       </p>
-      <AuthButtons name="Sign Up" />
+      <AuthButtons name="Sign Up" handleSubmit={onSubmitHandler} />
     </form>
   );
 };
