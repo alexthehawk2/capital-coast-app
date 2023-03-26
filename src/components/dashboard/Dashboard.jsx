@@ -3,6 +3,7 @@ import Card from "../common/Card";
 import Navbar from "../navigation/Navbar";
 import Balance from "./Balance";
 import Hero from "./Hero";
+import RecentTransactions from "./RecentTransactions";
 import TransactionSummary from "./TransactionSummary";
 import TransferMoney from "./TransferMoney";
 
@@ -11,7 +12,7 @@ const Dashboard = () => {
     <>
       <Navbar />
       <Hero>
-        <div className="w-[100%] ss:w-[70%] mr-5">
+        <div className="w-[100%] ss:w-[70%] flex flex-col justify-between mr-5">
           <Card bgColor={"#1b1d21"} px="5" py="4">
             <Balance />
           </Card>
@@ -25,6 +26,11 @@ const Dashboard = () => {
           <TransferMoney />
         </Card>
       </Hero>
+      <section className="mt-4 mx-2 ss:mx-12">
+        <Card bgColor={"#1b1d21"} width="full" px={"0"}>
+          <RecentTransactions></RecentTransactions>
+        </Card>
+      </section>
     </>
   );
 };

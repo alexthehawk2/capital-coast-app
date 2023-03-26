@@ -47,7 +47,11 @@ import paypal from "./paypal-64.png";
 import people1 from "./people-1.jpg";
 import people2 from "./people-2.jpg";
 import people3 from "./people-3.jpg";
+import sortingIcon from "./sorting-icon.png";
+import bank2 from "./bank-2.png";
 export {
+  bank2,
+  sortingIcon,
   people1,
   people2,
   people3,
