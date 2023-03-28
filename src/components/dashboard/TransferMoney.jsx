@@ -7,7 +7,7 @@ const TransferMoney = () => {
   return (
     <div className="w-[100%] h-[100%] flex flex-col">
       <div className="flex justify-between mt-4 mb-6">
-        <h1 className="text-white font-bold text-2xl">Cash Out</h1>
+        <h1 className="text-white font-bold text-2xl">Transfer Money</h1>
         <div className="rounded-lg flex justify-center items-center p-3 bg-[#27292D] cursor-pointer">
           <Image src={settings} alt="settings icon" width={30} />
         </div>

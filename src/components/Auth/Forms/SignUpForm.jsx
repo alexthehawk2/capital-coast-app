@@ -5,7 +5,10 @@ import closedEye from "../../../assets/closedEye.svg";
 import Image from "next/image";
 import postAPI from "@/components/utilities/helpers/postApi";
 import { toggleToaster } from "@/components/utilities/helpers/helpers";
+import { setUserDetail } from "@/features/user/userDetail";
+import { useDispatch } from "react-redux";
 const SignUpForm = ({ setDisplayToaster }) => {
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -32,7 +35,9 @@ const SignUpForm = ({ setDisplayToaster }) => {
           if (res.status === "0") {
             toggleToaster(res.message, setDisplayToaster);
           } else if (res.status === "1") {
-            window.location.href = "/dashboard/profile";
+            toggleToaster(res.message, setDisplayToaster);
+            dispatch(setUserDetail(userData));
+            window.location.href = "/dashboard";
           }
         }
       } catch (e) {

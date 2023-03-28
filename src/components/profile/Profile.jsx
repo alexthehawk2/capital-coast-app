@@ -11,6 +11,7 @@ import { getCookie } from "../utilities/helpers/helpers";
 import ChangePassword from "./ChangePassword";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import AccountDetails from "./AccountDetails";
+import BenificiaryDetailsForm from "./BenificiaryDetailsForm";
 const Profile = ({ onOpen }) => {
   const toast = useToast();
   const [profileEdit, setProfileEdit] = useState(false);
@@ -157,6 +158,9 @@ const Profile = ({ onOpen }) => {
             <Tab isDisabled={!verifyBtnState} index={1}>
               Account Details
             </Tab>
+            <Tab isDisabled={!verifyBtnState} index={2}>
+              Add Benificiary Account
+            </Tab>
           </TabList>
 
           <TabPanels>
@@ -259,6 +263,9 @@ const Profile = ({ onOpen }) => {
             </TabPanel>
             <TabPanel>
               <AccountDetails selectedTab={selectedTab} />
+            </TabPanel>
+            <TabPanel>
+              <BenificiaryDetailsForm />
             </TabPanel>
           </TabPanels>
         </Tabs>
