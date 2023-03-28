@@ -16,17 +16,31 @@ const AccountDetails = ({ selectedTab }) => {
     if (selectedTab === "accountDetails") {
       setLoading(true);
       getAPI("/api/profile/get-account-details").then((res) => {
-        setAccountData(() => {
-          return {
-            accountNumber: res.response.account.accountNumber,
-            balance: {
-              available: res.response.account.accountBalance.balance,
-              currency: res.response.account.accountBalance.currency,
-            },
-            accountStatus: res.response.account.accountStatus,
-            accountType: res.response.account.accountType,
-          };
-        });
+        if (res.response.status === 0) {
+          setAccountData(() => {
+            return {
+              accountNumber: "NA",
+              balance: {
+                available: "NA",
+                currency: "NA",
+              },
+              accountStatus: "NA",
+              accountType: "NA",
+            };
+          });
+        } else {
+          setAccountData(() => {
+            return {
+              accountNumber: res.response.account.accountNumber,
+              balance: {
+                available: res.response.account.accountBalance.balance,
+                currency: res.response.account.accountBalance.currency,
+              },
+              accountStatus: res.response.account.accountStatus,
+              accountType: res.response.account.accountType,
+            };
+          });
+        }
         setLoading(false);
       });
     }

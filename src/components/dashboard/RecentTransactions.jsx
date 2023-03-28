@@ -55,7 +55,7 @@ const RecentTransactions = () => {
         Header: "Type",
         accessor: "type", // accessor is the "key" in the data
         Cell: ({ row }) => (
-          <div className="flex " key={row.original.id}>
+          <div className="flex text-left" key={row.original.id}>
             {console.log(row.original)}
             <div
               className={`mx-3 ${
@@ -99,7 +99,7 @@ const RecentTransactions = () => {
         Header: "Date",
         accessor: "date",
         Cell: ({ row }) => (
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center text-left">
             <p className="text-white mb-2 font-medium text-sm">
               {row.original.date}
             </p>
@@ -114,10 +114,27 @@ const RecentTransactions = () => {
       {
         Header: "Amount",
         accessor: "amount",
+        Cell: ({ row }) => <div>${row.original.amount}</div>,
       },
       {
         Header: "Status",
         accessor: "status",
+        Cell: ({ row }) => (
+          <div className="flex justify-center">
+            <div
+              className={`w-[120px] px-3 py-2 ${
+                row.original.status.toLowerCase() === "completed"
+                  ? "bg-[#63DA9E]"
+                  : row.original.status.toLowerCase() === "on hold"
+                  ? "bg-[#E36B8D]"
+                  : "bg-[#7DAAE6]"
+              } text-black text-center rounded-full capitalize
+          `}
+            >
+              {row.original.status}
+            </div>
+          </div>
+        ),
       },
       {
         Header: "Expected Date",
@@ -176,10 +193,10 @@ const RecentTransactions = () => {
     }
   );
   return (
-    <div className="w-full text-white">
-      <div className="px-10 flex justify-between mb-8">
+    <div className="w-full text-white overflow-x-scroll ss:overflow-auto table-div">
+      <div className="px-10 flex justify-between mb-8 flex-col gap-4">
         <h1 className="text-white font-bold text-2xl">Recent Transactions</h1>
-        <div>
+        <div className="flex justify-between">
           <select className="mr-5 bg-[#1b1d21] text-[#B4B6BA]">
             <option value="option1">Filter</option>
           </select>

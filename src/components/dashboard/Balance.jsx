@@ -20,8 +20,8 @@ const Balance = () => {
           <option value="option3">Option 3</option>
         </select>
       </div>
-      <div className="mt-5 rounded-md bg-[#131519] p-3 flex mx-0 ss:mx-8 flex-col ss:flex-row">
-        <div className="w-[100%] ss:w-[50%]">
+      <div className="mt-5 rounded-md bg-[#131519] p-3 flex mx-0 lg:mx-8 flex-col lg:flex-row">
+        <div className="w-[100%] lg:w-[50%]">
           <Card bgColor={"#131519"} px={2} py={2} flex justifyCenter>
             <div className="mx-4">
               <Image src={moneyPot} alt="money-pot" width={50} />
@@ -57,7 +57,7 @@ const Balance = () => {
             </div>
           </Card>
         </div>
-        <div className="bg-[#1b1d21] w-[100%] ss:w-[50%] rounded-lg">
+        <div className="bg-[#1b1d21] w-[100%] lg:w-[50%] rounded-lg">
           <Card bgColor={"#1b1d21"} px={2} py={2} flex justifyCenter>
             <div className="mx-4">
               <Image

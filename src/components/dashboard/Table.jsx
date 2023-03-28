@@ -13,7 +13,6 @@ const Table = ({ tableInstance }) => {
     selectedFlatRows,
     state: { selectedRowIds },
   } = tableInstance;
-  //   console.log(rows);
   return (
     // apply the table props
     <table {...getTableProps()} className="w-full">

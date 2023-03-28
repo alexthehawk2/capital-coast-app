@@ -4,6 +4,7 @@ import { logo, hamEffect, hamStatic } from "@/assets";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import getAPI from "../utilities/helpers/getApi";
 const Navbar = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = React.useState(false);
@@ -25,6 +26,11 @@ const Navbar = () => {
     setIsOpen(!isOpen);
     setMenuIcon(isOpen ? hamStatic : hamEffect);
   };
+  const logoutHandler = () => {
+    getAPI("/api/auth/logout").then((res) => {
+      router.push("/signin");
+    });
+  };
   return (
     <>
       <nav className="bg-[rgb(34,35,40)] p-2 flex justify-between ss:justify-between flex-wrap">
@@ -33,7 +39,7 @@ const Navbar = () => {
         </div>
         <ul className="ss:flex items-center hidden">
           {navItems.map((item, index) => {
-            return (
+            return item.name !== "Logout" ? (
               <li key={index} className="nav-li">
                 <Link
                   href={item.href}
@@ -41,6 +47,14 @@ const Navbar = () => {
                 >
                   {item.name}
                 </Link>
+              </li>
+            ) : (
+              <li
+                key={index}
+                className="nav-li text-[#9fa3a8] cursor-pointer"
+                onClick={logoutHandler}
+              >
+                <span>Logout</span>
               </li>
             );
           })}
@@ -53,16 +67,26 @@ const Navbar = () => {
             !isOpen ? "nav-hide" : ""
           }`}
         >
-          {navItems.map((item, index) => (
-            <li key={index} className={`mr-2 ss:hidden nav-li`}>
-              <Link
-                href={item.href}
-                className={router.pathname == item.href ? "active" : ""}
+          {navItems.map((item, index) => {
+            return item.name !== "Logout" ? (
+              <li key={index} className="nav-li  mr-2">
+                <Link
+                  href={item.href}
+                  className={`${router.pathname == item.href ? "active" : ""}`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ) : (
+              <li
+                key={index}
+                className="nav-li text-[#9fa3a8] cursor-pointer mr-0"
+                onClick={logoutHandler}
               >
-                {item.name}
-              </Link>
-            </li>
-          ))}
+                <a className="inline-block w-full">Logout</a>
+              </li>
+            );
+          })}
         </ul>
         <div className=" w-[3.2rem] mr-[3rem] p-1 hidden ss:block">
           <div className="rounded-full h-[100%] text-white flex justify-center items-center bg-[#5D9C59] font-semibold">

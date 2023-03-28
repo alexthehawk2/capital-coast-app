@@ -24,9 +24,10 @@ const Card = ({
     full: "w-[100%]",
     half: "w-[50%]",
     cust76: "w-[76px]",
-    cust33: "w-[33%]",
+    cust33: "w-[100%] lg:w-[33%]",
   };
   const paddingX = {
+    0: "px-0",
     1: "px-1",
     2: "px-2",
     4: "px-4",
@@ -37,6 +38,7 @@ const Card = ({
     12: "px-12",
   };
   const paddingY = {
+    0: "py-0",
     1: "py-1",
     2: "py-2",
     4: "py-4",

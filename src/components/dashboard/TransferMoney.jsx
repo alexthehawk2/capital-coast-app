@@ -25,11 +25,13 @@ const TransferMoney = () => {
       </Card>
       <Card width={"full"} px="4" py="4" bgColor="#1C1D21" my="4">
         <div className="flex">
-          <div className="mr-4 px-6 py-3 bg-[#7DAAE6] rounded-md">
+          <div className="mr-4 px-6 py-3 bg-[#7DAAE6] rounded-md min-w-fit">
             <Image src={paypal} alt="settings icon" width={35} />
           </div>
-          <div>
-            <p className="mb-2 text-white font-semibold">troy_gem@yahoo...</p>
+          <div className="max-w-fit">
+            <p className="mb-2 text-white font- max-w-[100px] overflow-hidden text-ellipsis whitespace-nowrap">
+              abirdey@gmail...
+            </p>
             <p className="italic text-[#B4B6BA]">Paypal</p>
           </div>
         </div>

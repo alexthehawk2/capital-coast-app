@@ -12,11 +12,11 @@ const Dashboard = () => {
     <>
       <Navbar />
       <Hero>
-        <div className="w-[100%] ss:w-[70%] flex flex-col justify-between mr-5">
+        <div className="w-[100%] lg:w-[70%] flex flex-col justify-between mr-5">
           <Card bgColor={"#1b1d21"} px="5" py="4">
             <Balance />
           </Card>
-          <div className="mt-4">
+          <div className="mt-4 mb-4 lg:mb-0">
             <Card bgColor={"#1b1d21"} px="5" py="10">
               <TransactionSummary />
             </Card>
