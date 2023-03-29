@@ -6,10 +6,26 @@ import {
   moneyPot,
 } from "@/assets";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../common/Card";
-
+import getAPI from "../utilities/helpers/getApi";
+import { formatMoney } from "accounting-js";
 const Balance = () => {
+  const [loading, setLoading] = useState(false);
+  const [accountData, setAccountData] = useState({
+    accountBalance: null,
+  });
+  useEffect(() => {
+    setLoading(true);
+    getAPI(`/api/profile/get-account-details`).then((res) => {
+      setAccountData({
+        accountBalance: formatMoney(
+          res.response.account.accountBalance.balance
+        ),
+      });
+      setLoading(false);
+    });
+  }, []);
   return (
     <div className="text-white">
       <div className="flex w-[100%] justify-between items-center mx-0 ss:mx-8 mb-5 ss:mt-12">
@@ -31,8 +47,8 @@ const Balance = () => {
                 Available Balance
               </p>
               <div className="flex mb-5 justify-between">
-                <p className="text-white mr-2 ss:mr-6 text-4xl font-bold">
-                  <span className="dollar-symbol">$</span>43,731
+                <p className="text-white mr-2 ss:mr-6 text-4xl font-bold break-words">
+                  {accountData.accountBalance ?? accountData.accountBalance}
                 </p>
                 <div className="flex items-end">
                   <span className="text-[#B4B6BA] italic inline-block">
