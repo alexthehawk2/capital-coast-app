@@ -1,8 +1,11 @@
 import postAPI from "@/components/utilities/helpers/postApi";
 import cookie from "cookie";
 export default function signupHandler(req, resp) {
-  console.log(req.body);
-  const apiRoute = "http://localhost:3001/api/auth/signup";
+  const endpoint =
+    process.env.NODE_ENVIRONMENT === "production"
+      ? "https://capital-coast-server.onrender.com"
+      : "http://localhost:3001";
+  const apiRoute = endpoint + "/api/auth/signup";
   postAPI(apiRoute, req.body).then((res) => {
     console.log(res);
     if (res.status === "1") {

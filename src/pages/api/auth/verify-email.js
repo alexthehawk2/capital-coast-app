@@ -1,6 +1,10 @@
 export default async function sendVerifyEmailHandler(req, res) {
+  const endpoint =
+    process.env.NODE_ENVIRONMENT === "production"
+      ? "https://capital-coast-server.onrender.com"
+      : "http://localhost:3001";
   const payload = req.body;
-  const response = await fetch("http://localhost:3001/api/auth/verify-email", {
+  const response = await fetch(endpoint + "/api/auth/verify-email", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

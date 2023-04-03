@@ -1,11 +1,15 @@
 import cookie from "cookie";
 
 export default async function updateProfileHandler(req, res) {
+  const endpoint =
+    process.env.NODE_ENVIRONMENT === "production"
+      ? "https://capital-coast-server.onrender.com"
+      : "http://localhost:3001";
   if (req.body.type === "profileChange") {
     const payload = req.body.userData;
 
     const response = await fetch(
-      "http://localhost:3001/api/profile/edit-profile",
+      endpoint + "/api/profile/edit-profile",
       {
         method: "POST",
         headers: {
@@ -20,7 +24,7 @@ export default async function updateProfileHandler(req, res) {
     const payload = req.body;
     delete payload.type;
     const response = await fetch(
-      "http://localhost:3001/api/auth/request-change-email",
+      endpoint+"/api/auth/request-change-email",
       {
         method: "POST",
         headers: {
@@ -37,7 +41,7 @@ export default async function updateProfileHandler(req, res) {
       enteredCode: req.body.emailUpdateCode,
     };
     const response = await fetch(
-      "http://localhost:3001/api/auth/verify-email?type=change-email",
+      endpoint+"/api/auth/verify-email?type=change-email",
       {
         method: "POST",
         headers: {
@@ -50,7 +54,7 @@ export default async function updateProfileHandler(req, res) {
     res.json(data);
   } else if (req.body.type === "activationCodeVerify") {
     const response = await fetch(
-      "http://localhost:3001/api/auth/verify-email?type=change-email-to",
+      endpoint+"/api/auth/verify-email?type=change-email-to",
       {
         method: "POST",
         headers: {
