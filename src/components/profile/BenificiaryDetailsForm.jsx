@@ -1,8 +1,10 @@
 import React from "react";
 
 import classes from "./BenificiaryDetailsForm.module.css";
-
+import { useToast } from "@chakra-ui/react";
+import { warning } from "framer-motion";
 const BenificiaryDetailsForm = () => {
+  const toast = useToast();
   const [accountDetails, setAccountDetails] = React.useState({
     accountNumber: "",
     accountHolderName: "",
@@ -20,11 +22,25 @@ const BenificiaryDetailsForm = () => {
     const accountNumber = accountDetails.accountNumber;
     const accountHolderName = accountDetails.accountHolderName;
     if (accountNumber.length !== 10) {
-      alert("Account number must be 10 digits");
+      toast({
+        title: "Error",
+        description: "Account number must be 10 digits",
+        status: "warning",
+        duration: 5000,
+        position: "top-right",
+        isClosable: true,
+      });
       return;
     }
     if (accountHolderName.length < 5) {
-      alert("Account holder name must be at least 5 characters");
+      toast({
+        title: "Error",
+        description: "Account holder name must be at least 5 characters long",
+        status: "warning",
+        duration: 5000,
+        position: "top-right",
+        isClosable: true,
+      });
       return;
     }
     const data = {
@@ -39,9 +55,23 @@ const BenificiaryDetailsForm = () => {
       body: JSON.stringify(data),
     })
       .then((res) => res.json())
-      .then((data) => {})
+      .then((data) => {
+        toast({
+          title: data.status == 1 ? "Success" : "Error",
+          description: data.message,
+          status: data.status == 1 ? "success" : "error",
+          duration: 5000,
+          position: "top-right",
+        });
+      })
       .catch((err) => {
-        console.log(err);
+        toast({
+          title: "An error occurred.",
+          description: err.message,
+          status: "error",
+          duration: 5000,
+          position: "top-right",
+        });
       });
   };
   return (

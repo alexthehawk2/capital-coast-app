@@ -1,8 +1,5 @@
-import { logo } from "@/assets";
-import Sidebar from "@/components/navigation/Sidebar";
 import Profile from "@/components/profile/Profile";
-import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -15,6 +12,9 @@ import {
 import EmailVerifyForm from "@/components/Auth/Forms/EmailVerifyForm";
 import Navbar from "@/components/navigation/Navbar";
 const _Profile = () => {
+  useEffect(() => {
+    document.title = "Capital Coast | Profile";
+  }, []);
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
