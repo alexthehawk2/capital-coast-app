@@ -46,7 +46,7 @@ const Balance = () => {
               <p className="text-[#B4B6BA] mb-4 max-w-[160px]">
                 Available Balance
               </p>
-              <div className="flex mb-5 justify-between">
+              <div className="flex mb-5 justify-between flex-wrap">
                 <p className="text-white mr-2 ss:mr-6 text-4xl font-bold break-words">
                   {accountData.accountBalance ?? accountData.accountBalance}
                 </p>

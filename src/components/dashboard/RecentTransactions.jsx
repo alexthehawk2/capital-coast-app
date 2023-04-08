@@ -48,7 +48,6 @@ const RecentTransactions = () => {
       }),
     []
   );
-  console.log(data);
   const columns = React.useMemo(
     () => [
       {
@@ -56,7 +55,6 @@ const RecentTransactions = () => {
         accessor: "type", // accessor is the "key" in the data
         Cell: ({ row }) => (
           <div className="flex text-left" key={row.original.id}>
-            {console.log(row.original)}
             <div
               className={`mx-3 ${
                 row.original.mode === "Paypal"

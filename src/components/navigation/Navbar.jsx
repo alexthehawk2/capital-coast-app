@@ -43,7 +43,11 @@ const Navbar = () => {
               <li key={index} className="nav-li">
                 <Link
                   href={item.href}
-                  className={router.pathname == item.href ? "active" : ""}
+                  className={
+                    router.pathname == item.href
+                      ? "active"
+                      : "" && "cursor-pointer"
+                  }
                 >
                   {item.name}
                 </Link>
