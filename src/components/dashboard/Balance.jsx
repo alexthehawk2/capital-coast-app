@@ -20,7 +20,7 @@ const Balance = () => {
     getAPI(`/api/profile/get-account-details`).then((res) => {
       setAccountData({
         accountBalance: formatMoney(
-          res.response.account.accountBalance.balance
+          res.response.account?.accountBalance.balance
         ),
       });
       setLoading(false);

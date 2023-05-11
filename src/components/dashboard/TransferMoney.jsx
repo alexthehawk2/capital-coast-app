@@ -50,11 +50,13 @@ const TransferMoney = () => {
         </div>
       </div>
       <div
-        className="max-h-[235px] overflow-y-scroll pr-2 cursor-pointer"
+        className={`max-h-[235px] ${
+          beneficiaries.length === 0 ? "" : "overflow-y-scroll cursor-pointer"
+        } pr-2`}
         id="account-container"
       >
         {beneficiaries.length === 0 ? (
-          <p>No beneficiaries found.</p>
+          <p className="text-white text-center">No beneficiaries found.</p>
         ) : (
           beneficiaries.map((beneficiary) => {
             return (
@@ -96,7 +98,7 @@ const TransferMoney = () => {
           })
         )}
       </div>
-      <div className="">
+      <div className={beneficiaries.length === 0 ? "hidden" : ""}>
         <Card width={"full"} px="4" py="4" bgColor="#63DA9E" my="4">
           <button className="w-[100%] font-semibold" onClick={transferHandler}>
             Transfer Amount

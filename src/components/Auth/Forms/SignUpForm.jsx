@@ -7,7 +7,9 @@ import postAPI from "@/components/utilities/helpers/postApi";
 import { toggleToaster } from "@/components/utilities/helpers/helpers";
 import { setUserDetail } from "@/features/user/userDetail";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 const SignUpForm = ({ setDisplayToaster }) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const [userData, setUserData] = useState({
     firstName: "",
@@ -37,7 +39,7 @@ const SignUpForm = ({ setDisplayToaster }) => {
           } else if (res.status === "1") {
             toggleToaster(res.message, setDisplayToaster);
             dispatch(setUserDetail(userData));
-            window.location.href = "/dashboard";
+            router.push("/dashboard/profile");
           }
         }
       } catch (e) {
