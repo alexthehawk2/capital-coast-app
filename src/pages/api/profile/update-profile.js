@@ -1,34 +1,32 @@
 import cookie from "cookie";
 
 export default async function updateProfileHandler(req, res) {
+  const endpoint =
+    process.env.NODE_ENVIRONMENT === "production"
+      ? "https://capital-coast-server.onrender.com"
+      : "http://localhost:3001";
   if (req.body.type === "profileChange") {
     const payload = req.body.userData;
 
-    const response = await fetch(
-      "https://capital-coast-server.onrender.com/api/profile/edit-profile",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      }
-    );
+    const response = await fetch(endpoint + "/api/profile/edit-profile", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
     const data = await response.json();
     res.json(data);
   } else if (req.body.type === "emailChangeRequest") {
     const payload = req.body;
     delete payload.type;
-    const response = await fetch(
-      "https://capital-coast-server.onrender.com/api/auth/request-change-email",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      }
-    );
+    const response = await fetch(endpoint + "/api/auth/request-change-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
     const data = await response.json();
     res.json(data);
   } else if (req.body.type === "emailUpdateCodeVerify") {
@@ -37,7 +35,7 @@ export default async function updateProfileHandler(req, res) {
       enteredCode: req.body.emailUpdateCode,
     };
     const response = await fetch(
-      "https://capital-coast-server.onrender.com/api/auth/verify-email?type=change-email",
+      endpoint + "/api/auth/verify-email?type=change-email",
       {
         method: "POST",
         headers: {
@@ -50,7 +48,7 @@ export default async function updateProfileHandler(req, res) {
     res.json(data);
   } else if (req.body.type === "activationCodeVerify") {
     const response = await fetch(
-      "https://capital-coast-server.onrender.com/api/auth/verify-email?type=change-email-to",
+      endpoint + "/api/auth/verify-email?type=change-email-to",
       {
         method: "POST",
         headers: {

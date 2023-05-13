@@ -1,6 +1,6 @@
+import { formatMoney } from "accounting-js";
 import React, { useEffect, useState } from "react";
 import getAPI from "../utilities/helpers/getApi";
-
 const AccountDetails = ({ selectedTab }) => {
   const [loading, setLoading] = useState(false);
   const [accountData, setAccountData] = useState({
@@ -16,17 +16,33 @@ const AccountDetails = ({ selectedTab }) => {
     if (selectedTab === "accountDetails") {
       setLoading(true);
       getAPI("/api/profile/get-account-details").then((res) => {
-        setAccountData(() => {
-          return {
-            accountNumber: res.response.account.accountNumber,
-            balance: {
-              available: res.response.account.accountBalance.balance,
-              currency: res.response.account.accountBalance.currency,
-            },
-            accountStatus: res.response.account.accountStatus,
-            accountType: res.response.account.accountType,
-          };
-        });
+        if (res.response.status === 0) {
+          setAccountData(() => {
+            return {
+              accountNumber: "NA",
+              balance: {
+                available: "NA",
+                currency: "NA",
+              },
+              accountStatus: "NA",
+              accountType: "NA",
+            };
+          });
+        } else {
+          setAccountData(() => {
+            return {
+              accountNumber: res.response.account.accountNumber,
+              balance: {
+                available: formatMoney(
+                  res.response.account.accountBalance.balance
+                ),
+                currency: res.response.account.accountBalance.currency,
+              },
+              accountStatus: res.response.account.accountStatus,
+              accountType: res.response.account.accountType,
+            };
+          });
+        }
         setLoading(false);
       });
     }
@@ -44,10 +60,7 @@ const AccountDetails = ({ selectedTab }) => {
       <div className="flex w-[100%] sm:w-[50%] mt-4">
         <label className="w-[150px]">Available Balance</label>
         <label className="mx-4">:</label>
-        <label className="">
-          {accountData.balance.currency ? "$" : ""}{" "}
-          {accountData.balance.available}
-        </label>
+        <label className="">{accountData.balance.available}</label>
       </div>
       <div className="flex w-[100%] sm:w-[50%] mt-4">
         <label className="w-[150px]">Account Status</label>

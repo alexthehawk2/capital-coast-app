@@ -5,7 +5,7 @@ export const TransactionData = [
     TransactionDate: new Date(2023, 3, 24, 12, 0, 0),
     TransactionId: "CAPC#1122",
     Amount: 830,
-    Status: "Pending",
+    Status: "Completed",
     ExpectedDate: new Date(2023, 3, 25, 11, 0, 0),
   },
   {

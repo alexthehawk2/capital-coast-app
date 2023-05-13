@@ -52,7 +52,7 @@ const SignInForm = ({ setDisplayToaster }) => {
             const { token } = res;
             const user = parseJwt(token);
             dispatch(setUserDetail(user));
-            router.push("/dashboard/profile");
+            router.push("/dashboard");
           }
         }
       } catch (e) {

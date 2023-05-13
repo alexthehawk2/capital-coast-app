@@ -1,8 +1,5 @@
-import { logo } from "@/assets";
-import Sidebar from "@/components/navigation/Sidebar";
 import Profile from "@/components/profile/Profile";
-import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -13,7 +10,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import EmailVerifyForm from "@/components/Auth/Forms/EmailVerifyForm";
+import Navbar from "@/components/navigation/Navbar";
 const _Profile = () => {
+  useEffect(() => {
+    document.title = "Capital Coast | Profile";
+  }, []);
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -27,12 +28,9 @@ const _Profile = () => {
           </ModalBody>
         </ModalContent>
       </Modal>
-      <div className="bg-black w-[100%] h-[auto] p-5 main min-h-[100vh]">
-        <div className="flex justify-center sm:justify-start">
-          <Image src={logo} alt="capital coast logo" height={100} width={200} />
-        </div>
-        <div className="sm:pr-[3rem] sm:pl-[10rem]">
-          <Sidebar />
+      <div className="bg-black w-[100%] h-[auto] main min-h-[100vh]">
+        <Navbar />
+        <div className="sm:pr-[3rem] sm:pl-[3rem]">
           <Profile onOpen={onOpen} />
         </div>
       </div>

@@ -49,7 +49,9 @@ import people2 from "./people-2.jpg";
 import people3 from "./people-3.jpg";
 import sortingIcon from "./sorting-icon.png";
 import bank2 from "./bank-2.png";
+import checkmark from "./checkmark-20.png";
 export {
+  checkmark,
   bank2,
   sortingIcon,
   people1,
