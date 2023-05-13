@@ -12,9 +12,7 @@ const TransferMoney = ({ setAccountData }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   useEffect(() => {
     const getBeneficiaries = async () => {
-      const res = await getAPI(
-        "http://localhost:3001/api/account/get-beneficiaries"
-      );
+      const res = await getAPI("/api/account/get-beneficiaries");
       if (res.status === 1) setBeneficiaries(res.beneficiaries);
     };
     getBeneficiaries();
