@@ -8,10 +8,19 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  useToast,
 } from "@chakra-ui/react";
-const MoneyTransfer = ({ isOpen, onClose, selectedBeneficiary }) => {
+import postAPI from "../utilities/helpers/postApi";
+import { formatMoney } from "accounting-js";
+const MoneyTransfer = ({
+  isOpen,
+  onClose,
+  selectedBeneficiary,
+  setAccountData,
+}) => {
   const [amountValue, setAmountValue] = useState(0);
   const [isDisabled, setIsDisabled] = useState(true);
+  const toast = useToast();
   const amountChangeHandler = (e) => {
     setAmountValue(e.target.value);
     if (parseInt(e.target.value) > 0) {
@@ -21,7 +30,35 @@ const MoneyTransfer = ({ isOpen, onClose, selectedBeneficiary }) => {
     }
   };
   const transferHandler = () => {
-    console.log("Transfer");
+    postAPI("/api/account/transfer-money", {
+      beneficiaryAccountNumber: selectedBeneficiary.beneficiaryAccountNumber,
+      amount: amountValue,
+    }).then((res) => {
+      if (res.status === 1) {
+        toast({
+          title: "Success",
+          description: res.message,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+        setAccountData({
+          accountBalance: formatMoney(res.remainingBalance),
+        });
+        onClose();
+      } else {
+        toast({
+          title: "Error",
+          description: res.message,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+        onClose();
+      }
+    });
   };
   return (
     <Modal

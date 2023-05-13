@@ -5,7 +5,7 @@ import Card from "../common/Card";
 import getAPI from "../utilities/helpers/getApi";
 import { useDisclosure } from "@chakra-ui/react";
 import MoneyTransfer from "../Modals/MoneyTransfer";
-const TransferMoney = () => {
+const TransferMoney = ({ setAccountData }) => {
   const [beneficiaries, setBeneficiaries] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(null);
@@ -116,6 +116,7 @@ const TransferMoney = () => {
         isOpen={isOpen}
         onClose={onClose}
         selectedBeneficiary={selectedBeneficiary}
+        setAccountData={setAccountData}
       />
     </div>
   );

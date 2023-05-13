@@ -22,6 +22,7 @@ const _Dashboard = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  if (!activeStatus) return null;
   return (
     <div className="min-h-[100vh] bg-[#050505]">
       <Dashboard />
