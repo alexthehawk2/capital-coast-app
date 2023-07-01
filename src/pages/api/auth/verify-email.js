@@ -1,16 +1,28 @@
+import axios from "axios";
+
 export default async function sendVerifyEmailHandler(req, res) {
   const endpoint =
     process.env.NODE_ENVIRONMENT === "production"
-      ? "https://capital-coast-server.onrender.com"
+      ? "https://65.2.166.175"
       : "http://localhost:3001";
+
   const payload = req.body;
-  const response = await fetch(endpoint + "/api/auth/verify-email", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ payload }),
-  });
-  const data = await response.json();
-  res.json(data);
+
+  try {
+    const response = await axios.post(
+      endpoint + "/api/auth/verify-email",
+      { payload },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = response.data;
+    res.json(data);
+  } catch (error) {
+    // Handle error
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
 }

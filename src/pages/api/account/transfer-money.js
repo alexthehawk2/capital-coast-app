@@ -1,17 +1,29 @@
-export default async function tranferMoney(req, res) {
+import axios from "axios";
+
+export default async function transferMoney(req, res) {
   const endpoint =
     process.env.NODE_ENVIRONMENT === "production"
-      ? "https://capital-coast-server.onrender.com"
+      ? "https://65.2.166.175"
       : "http://localhost:3001";
+
   console.log(req.body);
-  const response = await fetch(endpoint + "/api/account/transfer-money", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      token: req.cookies.token || "",
-    },
-    body: JSON.stringify(req.body),
-  });
-  const data = await response.json();
-  res.json(data);
+
+  try {
+    const response = await axios.post(
+      endpoint + "/api/account/transfer-money",
+      req.body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          token: req.cookies.token || "",
+        },
+      }
+    );
+    const data = response.data;
+    res.json(data);
+  } catch (error) {
+    // Handle error
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
 }

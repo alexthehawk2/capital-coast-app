@@ -1,15 +1,26 @@
+import axios from "axios";
+
 export default async function getBeneficiaries(req, res) {
   const endpoint =
     process.env.NODE_ENVIRONMENT === "production"
-      ? "https://capital-coast-server.onrender.com"
+      ? "https://65.2.166.175"
       : "http://localhost:3001";
-  const response = await fetch(endpoint + "/api/account/get-beneficiaries", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      token: req.cookies.token || "",
-    },
-  });
-  const data = await response.json();
-  res.json(data);
+
+  try {
+    const response = await axios.get(
+      endpoint + "/api/account/get-beneficiaries",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          token: req.cookies.token || "",
+        },
+      }
+    );
+    const data = response.data;
+    res.json(data);
+  } catch (error) {
+    // Handle error
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
 }

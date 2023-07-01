@@ -3,7 +3,7 @@ import cookie from "cookie";
 export default function loginHandler(req, resp) {
   const endpoint =
     process.env.NODE_ENVIRONMENT === "production"
-      ? "https://capital-coast-server.onrender.com"
+      ? "https://65.2.166.175"
       : "http://localhost:3001";
   const apiRoute = endpoint + "/api/auth/login";
 
