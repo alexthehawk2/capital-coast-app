@@ -34,6 +34,10 @@ const SignUpForm = ({ setDisplayToaster }) => {
     postAPI(apiRoute, userData).then((res) => {
       try {
         if (res) {
+          if ((res.status = "500")) {
+            toggleToaster(res.message, setDisplayToaster);
+            return;
+          }
           if (res.status === "0") {
             toggleToaster(res.message, setDisplayToaster);
           } else if (res.status === "1") {
